@@ -1,6 +1,6 @@
 <?php
 // File: index.php
-// Sistem Surat KPU (SPPD Final - 1 Lembar Depan & Belakang)
+// Sistem Surat KPU 
 
 // Set default timezone
 date_default_timezone_set('Asia/Jakarta');
@@ -20,10 +20,10 @@ date_default_timezone_set('Asia/Jakarta');
             box-sizing: border-box; 
             margin: 0; 
             padding: 0; 
-            font-family: 'Tahoma', 'Arial', sans-serif !important;
         }
         body { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            background: #c8dcf0; 
             color: #333; 
             padding-bottom: 30px; 
             min-height: 100vh; 
@@ -36,7 +36,7 @@ date_default_timezone_set('Asia/Jakarta');
         
         /* HEADER YANG ELEGAN TANPA ANIMASI */
         header { 
-            background: linear-gradient(135deg, #0a1f3a, #1e3a6f, #2b4c8c); 
+            background: #5b8db8; 
             color: white; 
             padding: 15px 0; 
             border-bottom: 5px solid #f0b429; 
@@ -61,7 +61,7 @@ date_default_timezone_set('Asia/Jakarta');
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            border: 2px solid #f0b429;
+            border: 2px solid #1e2a43;
         }
         
         .logo-wrapper img {
@@ -69,7 +69,7 @@ date_default_timezone_set('Asia/Jakarta');
             width: 60px;
             object-fit: contain;
             border-radius: 50%;
-            border: 2px solid #f0b429;
+            border: 2px solid #1e2a43;
         }
         
         .logo-wrapper:hover {
@@ -98,7 +98,7 @@ date_default_timezone_set('Asia/Jakarta');
         }
         
         .logo-text .subtitle i {
-            color: #f0b429;
+            color: #1e2a43;
             margin-right: 5px;
         }
         
@@ -107,32 +107,35 @@ date_default_timezone_set('Asia/Jakarta');
             display: flex;
             align-items: center;
             gap: 15px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.15); /* Latar belakang sedikit lebih gelap untuk kontras tinggi */
             padding: 6px 15px;
             border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Bayangan abu kontainer */
         }
         
         .header-info-item {
             display: flex;
             align-items: center;
             gap: 6px;
-            color: white;
+            color: #ffc107;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Bayangan abu-abu pada teks agar sangat jelas dibaca */
         }
         
         .header-info-item i {
             font-size: 0.9rem;
-            color: #f0b429;
+            color: #ffc107;
         }
         
         .header-info-item span {
             font-size: 0.8rem;
             font-weight: 500;
+            color: #ffc107;
         }
         
         .header-info-item .value {
             font-weight: 700;
-            color: #f0b429;
+            color: #ffc107;
             margin-left: 3px;
         }
         
@@ -140,7 +143,7 @@ date_default_timezone_set('Asia/Jakarta');
         .btn-secondary { 
             background: rgba(255,255,255,0.15); 
             color: white; 
-            border: 2px solid #f0b429; 
+            border: 2px solid #1e2a43; 
             border-radius: 40px;
             padding: 8px 25px;
             font-weight: 700;
@@ -182,7 +185,7 @@ date_default_timezone_set('Asia/Jakarta');
         .stat-item .stat-value {
             font-size: 1.1rem;
             font-weight: 800;
-            color: #f0b429;
+            color: #1e2a43;
             line-height: 1;
         }
         
@@ -263,25 +266,35 @@ date_default_timezone_set('Asia/Jakarta');
         .card { 
             background: white; 
             border-radius: 20px; 
-            padding: 30px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15); 
-            border: 1px solid rgba(255,255,255,0.3);
+            padding: 30px 10px 30px 30px; /* Kurangi padding kanan agar scrollbar dalam pas */
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18), 0 5px 15px rgba(0, 0, 0, 0.08); /* Bayangan belakang lebih menonjol */
+            border-left: 6px solid #54b4f5; /* Lekukan biru muda indah di ujung kiri luar form */
+            border-right: 6px solid #54b4f5; /* Lekukan biru muda indah di ujung kanan luar form */
             max-height: 95vh; 
             min-height: 800px; 
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Hapus overflow dari card luar agar border-right tidak terpotong scrollbar */
+        }
+        
+        .card-scroll-content {
             overflow-y: auto;
+            flex: 1;
+            padding-right: 15px; /* Jarak scrollbar dari konten & border kanan */
             scrollbar-width: thin;
             scrollbar-color: #3498db #f0f0f0;
         }
         
         /* CUSTOM SCROLLBAR YANG ELEGAN */
-        .card::-webkit-scrollbar {
+        .card-scroll-content::-webkit-scrollbar, .preview-wrapper::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
-        .card::-webkit-scrollbar-track {
+        .card-scroll-content::-webkit-scrollbar-track, .preview-wrapper::-webkit-scrollbar-track {
             background: #f0f0f0;
             border-radius: 10px;
         }
-        .card::-webkit-scrollbar-thumb {
+        .card-scroll-content::-webkit-scrollbar-thumb, .preview-wrapper::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #3498db, #2980b9);
             border-radius: 10px;
         }
@@ -331,7 +344,8 @@ date_default_timezone_set('Asia/Jakarta');
             background: linear-gradient(135deg, #f8faff, #f0f5ff); 
             padding: 25px; 
             border-radius: 18px; 
-            border-left: 6px solid #3498db; 
+            border-left: 6px solid #54b4f5; 
+            border-right: 6px solid #54b4f5; /* Lekukan biru muda simetris di sebelah kanan */
             margin-bottom: 25px; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             transition: all 0.3s;
@@ -377,6 +391,7 @@ date_default_timezone_set('Asia/Jakarta');
             padding: 15px 20px; 
             border-radius: 14px; 
             border-left: 6px solid #2196f3; 
+            border-right: 6px solid #2196f3; /* Lekukan biru simetris untuk label isi surat */
         }
         
         .form-group-isi-surat textarea {
@@ -402,6 +417,7 @@ date_default_timezone_set('Asia/Jakarta');
             padding: 25px; 
             border-radius: 18px; 
             border-left: 6px solid #ff9800; 
+            border-right: 6px solid #ff9800; /* Lekukan oranye simetris untuk tembusan */
             margin-bottom: 25px; 
         }
         
@@ -645,13 +661,15 @@ date_default_timezone_set('Asia/Jakarta');
 
         /* PREVIEW AREA - TETAP SAMA */
         .preview-wrapper { 
-            background: #525659; 
+            background: #c8dcf0; 
             padding: 20px; 
-            border-radius: 16px; 
+            border-radius: 20px; /* Diubah dari 16px agar lekukan sama persis dengan card di sebelah kirinya */
             overflow: auto; 
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
             max-height: 95vh; 
             min-height: 800px; 
+            scrollbar-width: thin;
+            scrollbar-color: #3498db #c8dcf0;
         }
         
         /* Default A4 untuk semua surat */
@@ -674,6 +692,17 @@ date_default_timezone_set('Asia/Jakarta');
             width: 215mm !important;
             min-height: 330mm !important;
             max-width: 215mm !important;
+        }
+        
+        /* Halaman belakang SPPD: tidak paksa min-height agar tidak ada lembar kosong */
+        #letter-preview.sppd-preview.sppd-belakang-active {
+            min-height: auto !important;
+            height: auto !important;
+        }
+        
+        /* Margin bawah untuk tabel halaman belakang agar saat di-export PDF tetap ada margin tipis */
+        #preview-sppd-belakang {
+            padding-bottom: 5mm !important;
         }
 
         .padding-sppd { 
@@ -715,6 +744,13 @@ date_default_timezone_set('Asia/Jakarta');
             margin-top: 2px;
         }
         
+        /* Style untuk space 2x enter di bawah PPK */
+        .ppk-signature-spacer {
+            height: 40px !important;
+            width: 100%;
+            display: block;
+        }
+        
         /* ===== STYLE KHUSUS UNTUK HALAMAN BELAKANG SPPD ===== */
         /* Container untuk setiap baris data dengan lebar tetap agar : sejajar */
         .sppd-data-row-fixed {
@@ -725,11 +761,11 @@ date_default_timezone_set('Asia/Jakarta');
             min-height: 20px;
         }
         
-        /* Label dengan lebar tetap 85px agar semua : sejajar */
+        /* Label dengan lebar tetap 140px agar semua : sejajar */
         .sppd-label-fixed {
-            min-width: 85px;
+            min-width: 140px;
             font-weight: normal;
-            white-space: nowrap;
+            white-space: normal;
             font-size: 9.5pt;
             line-height: 1.4;
         }
@@ -839,13 +875,13 @@ date_default_timezone_set('Asia/Jakarta');
         
         /* Style khusus untuk titik-titik di kolom kanan baris 2-5 */
         .sppd-signature .titik-ttd.kanan-turun {
-            margin-top: 60px !important;
+            margin-top: 40px !important;
             margin-bottom: 2px !important;
         }
         
         /* Style khusus untuk titik-titik di kolom kiri baris 2-5 */
         .sppd-signature .titik-ttd.kiri-turun {
-            margin-top: 60px !important;
+            margin-top: 40px !important;
             margin-bottom: 2px !important;
         }
         
@@ -855,8 +891,8 @@ date_default_timezone_set('Asia/Jakarta');
         }
         
         .sppd-signature.sekretaris-column .jabatan {
-            margin-top: 10px !important;
-            margin-bottom: 60px !important;
+            margin-top: 0px !important; /* Margin atas diperkecil */
+            margin-bottom: 75px !important; /* Jarak tanda tangan ditambahkan lebih banyak lagi */
             padding-bottom: 0 !important;
             line-height: 1.2 !important;
             font-size: 10pt !important;
@@ -908,19 +944,18 @@ date_default_timezone_set('Asia/Jakarta');
             font-size: 10pt; 
         }
         
-        /* Style untuk PPK tanpa titik-titik - DENGAN JARAK SANGAT BESAR ANTARA JABATAN DAN NAMA, TAPI NAMA DAN NIP RAPAT */
         .sppd-signature-ppk { 
-            margin-top: -20px !important; 
+            margin-top: 0px !important; 
             text-align: center !important; 
             display: flex; 
             flex-direction: column; 
             width: 100%; 
-            margin-bottom: 20px !important; 
+            margin-bottom: 5px !important; 
         }
         
         .sppd-signature-ppk .jabatan-ppk { 
             font-weight: normal !important; 
-            margin-bottom: 80px !important; /* JARAK SANGAT BESAR */
+            margin-bottom: 75px !important; /* Jarak ditambah agar ruang tanda tangan lebih luas */
             text-align: center !important; 
             width: 100%; 
             margin-top: 0px !important; 
@@ -935,10 +970,11 @@ date_default_timezone_set('Asia/Jakarta');
             display: none !important;
         }
         
+        /* Nama PPK tidak tebal dan tidak bergaris bawah, format (Nama) */
         .sppd-signature-ppk .nama-ppk { 
-            font-weight: bold; 
-            text-decoration: underline; 
-            margin-bottom: 2px !important; /* JARAK SANGAT RAPAT */
+            font-weight: normal !important;
+            text-decoration: none !important;
+            margin-bottom: 2px !important;
             line-height: 1.2 !important; 
             text-align: center !important; 
             width: 100%; 
@@ -947,7 +983,7 @@ date_default_timezone_set('Asia/Jakarta');
         
         .sppd-signature-ppk .nip-ppk { 
             margin-top: 1px !important; 
-            margin-bottom: 5px !important; /* DIPERKECIL dari 30px menjadi 5px agar garis lebih dekat ke NIP */
+            margin-bottom: 5px !important;
             line-height: 1.2 !important; 
             text-align: center !important; 
             width: 100%; 
@@ -955,17 +991,17 @@ date_default_timezone_set('Asia/Jakarta');
         }
         
         .sppd-signature-ppk-kanan { 
-            margin-top: 5px; 
+            margin-top: 0px !important; 
             text-align: center !important; 
             display: flex; 
             flex-direction: column; 
             width: 100%; 
-            margin-bottom: 2px !important; 
+            margin-bottom: 5px !important; 
         }
         
         .sppd-signature-ppk-kanan .jabatan-ppk-kanan { 
             font-weight: normal !important; 
-            margin-bottom: 80px !important; /* JARAK SANGAT BESAR */
+            margin-bottom: 75px !important; /* Jarak dikurangi agar muat 1 halaman */
             text-align: center !important; 
             width: 100%; 
             font-size: 10pt; 
@@ -973,14 +1009,16 @@ date_default_timezone_set('Asia/Jakarta');
         }
         
         .sppd-signature-ppk-kanan .space-ttd-kanan { 
-            height: 15px !important; 
+            display: none !important;
+            height: 0px !important; 
             width: 100%; 
         }
         
+        /* Nama PPK kanan tidak tebal dan tidak bergaris bawah, format (Nama) */
         .sppd-signature-ppk-kanan .nama-ppk-kanan { 
-            font-weight: bold; 
-            text-decoration: underline; 
-            margin-bottom: 2px !important; /* JARAK SANGAT RAPAT */
+            font-weight: normal !important;
+            text-decoration: none !important;
+            margin-bottom: 2px !important;
             line-height: 1.2 !important;
             text-align: center !important; 
             width: 100%; 
@@ -989,7 +1027,7 @@ date_default_timezone_set('Asia/Jakarta');
         
         .sppd-signature-ppk-kanan .nip-ppk-kanan { 
             margin-top: 1px !important; 
-            margin-bottom: 5px !important; /* DIPERKECIL dari 20px menjadi 5px agar garis lebih dekat ke NIP */
+            margin-bottom: 5px !important;
             line-height: 1.2 !important; 
             text-align: center !important; 
             width: 100%; 
@@ -1032,11 +1070,11 @@ date_default_timezone_set('Asia/Jakarta');
         
         .sppd-back-grid td { 
             border: 1px solid black; 
-            padding: 8px 10px; 
+            padding: 4px 6px; 
             vertical-align: top; 
             width: 50%; 
-            min-height: 150px; 
-            font-size: 10pt; 
+            min-height: 100px; 
+            font-size: 9.5pt; 
             background: white; 
         }
         
@@ -1064,44 +1102,199 @@ date_default_timezone_set('Asia/Jakarta');
         .kop-center .kop-top { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
         .kop-center .kop-logo-img { display: block; margin: 0 auto 10px auto; width: 75px; height: 75px; object-fit: contain; }
         .kop-center .kop-text { text-align: center; width: 100%; }
-        .kop-center .kop-text h1, .kop-center .kop-text h2 { font-size: 11pt !important; font-weight: bold !important; margin: 0; text-transform: uppercase; line-height: 1.2; color: black; }
+        
+        /* PERUBAHAN UKURAN FONT KOP SURAT - 14PT UNTUK JUDUL, 12PT UNTUK ALAMAT */
+        .kop-center .kop-text h1, 
+        .kop-center .kop-text h2 {
+            font-size: 14pt !important;
+            font-weight: bold !important;
+            margin: 0;
+            text-transform: uppercase;
+            line-height: 1.2;
+            color: black;
+        }
+        
+        /* Untuk Kop Surat model Sekretaris (logo di kiri) */
+        .kop-sekretaris-text h1, 
+        .kop-sekretaris-text h2 {
+            font-size: 14pt !important;
+            font-weight: bold !important;
+            margin: 0;
+            text-transform: uppercase;
+            line-height: 1.2;
+            color: black;
+        }
+
+        /* Untuk alamat di Kop Surat model Sekretaris */
+        .kop-sekretaris-text .alamat {
+            font-size: 12pt !important;
+            margin-top: 3px;
+            font-weight: normal;
+            color: black;
+            text-align: center;
+        }
+
+        /* Untuk Kop Surat Tugas model Sekretaris */
+        .kop-surat-tugas-sekretaris .kop-judul h1, 
+        .kop-surat-tugas-sekretaris .kop-judul h2 {
+            font-size: 14pt !important;
+        }
+
+        .kop-surat-tugas-sekretaris .alamat {
+            font-size: 12pt !important;
+        }
+
+        /* Tambahan untuk Kop Surat Dinas/Nota biasa */
+        .kop-text h1, .kop-text h2 {
+            font-size: 14pt !important;
+        }
+
+        /* Alamat untuk Kop biasa jika ada */
+        .kop-alamat-detail {
+            font-size: 12pt !important;
+        }
+        
         .kontak-row { display: flex; justify-content: space-between; width: 100%; border-bottom: 2px solid black; padding-bottom: 4px; margin-top: 8px; margin-bottom: 10px; font-size: 10pt; }
+        
+        /* STYLE BARU UNTUK KOP SEKRETARIS DENGAN LOGO DI KIRI LEBIH KE KIRI */
+        .kop-surat-sekretaris {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .kop-sekretaris-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 15px;
+            width: 100%;
+        }
+        .kop-sekretaris-logo {
+            flex-shrink: 0;
+            margin-left: 0;
+            padding-left: 0;
+        }
+        .kop-sekretaris-logo img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+        }
+        .kop-sekretaris-text {
+            flex: 1;
+            text-align: center;
+            padding-right: 75px; /* Memberi ruang di kanan agar teks tetap center secara visual */
+        }
+        .kop-sekretaris-kontak {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10pt;
+            margin-top: 8px;
+            border-bottom: 2px solid black;
+            padding-bottom: 4px;
+            width: 100%;
+        }
+        
         .kop-surat-tugas-sekretaris { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; margin-bottom: 15px; }
         .kop-surat-tugas-sekretaris .kop-header { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
         .kop-surat-tugas-sekretaris .logo { width: 75px; height: 75px; margin: 0 auto 8px auto; display: block; object-fit: contain; }
         .kop-surat-tugas-sekretaris .kop-judul { width: 100%; text-align: center; }
-        .kop-surat-tugas-sekretaris .kop-judul h1, .kop-surat-tugas-sekretaris .kop-judul h2 { font-size: 11pt !important; font-weight: bold !important; margin: 0; text-transform: uppercase; line-height: 1.2; color: black; text-align: center; }
-        .kop-surat-tugas-sekretaris .alamat { font-size: 10pt; margin-top: 3px; font-weight: normal; color: black; text-align: center; }
+        .kop-surat-tugas-sekretaris .kop-judul h1, .kop-surat-tugas-sekretaris .kop-judul h2 { font-size: 14pt !important; font-weight: bold !important; margin: 0; text-transform: uppercase; line-height: 1.2; color: black; text-align: center; }
+        .kop-surat-tugas-sekretaris .alamat { font-size: 12pt !important; margin-top: 3px; font-weight: normal; color: black; text-align: center; }
         .kop-surat-tugas-sekretaris .kontak { display: flex; justify-content: space-between; font-size: 10pt; margin-top: 3px; border-bottom: 2px solid black; padding-bottom: 4px; width: 100%; }
+        
         .judul-surat, .judul-nota, .judul-tugas, .nomor-surat-center { font-family: 'Tahoma', sans-serif !important; }
         .judul-surat { text-align: center; font-weight: bold !important; font-size: 13pt; margin-bottom: 12px; text-transform: uppercase; margin-top: 20px; }
-        .judul-nota { text-align: center; font-weight: bold !important; font-size: 13pt; margin-bottom: 12px; text-transform: uppercase; text-decoration: underline; margin-top: 20px; }
+        .judul-nota { text-align: center; font-weight: normal !important; font-size: 13pt; margin-bottom: 12px; text-transform: uppercase; text-decoration: underline; margin-top: 20px; }
         .judul-tugas { text-align: center; font-weight: bold !important; font-size: 13pt; margin-bottom: 12px; text-transform: uppercase; margin-top: 20px; text-decoration: underline; }
-        .nomor-surat-center { text-align: center; font-size: 11pt; margin-bottom: 20px; font-weight: normal; }
+        .nomor-surat-center { text-align: center; font-size: 12pt; margin-bottom: 20px; font-weight: normal; }
         .signature-section { margin-top: 30px; float: right; width: 45%; display: flex; flex-direction: column; align-items: center; text-align: center; margin-right: 20px; }
         .sign-spacer { height: 60px; width: 100%; }
-        .sign-name { font-weight: bold; text-decoration: underline; font-size: 11pt; text-transform: uppercase; width: 100%; margin-bottom: 8px; text-align: center; }
-        .sign-nip { margin-top: 8px; width: 100%; font-size: 11pt; text-align: center; }
-        .sign-jabatan { font-size: 11pt; margin-bottom: 12px; text-align: center; width: 100%; }
+        
+        /* Nama penandatangan umum tidak tebal dan tidak bergaris bawah, format (Nama) */
+        .sign-name { 
+            font-weight: normal !important;
+            text-decoration: none !important;
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            width: 100%; 
+            margin-bottom: 8px; 
+            text-align: center; 
+        }
+        
+        .sign-nip { margin-top: 8px; width: 100%; font-size: 12pt; text-align: center; }
+        .sign-jabatan { font-size: 12pt; margin-bottom: 12px; text-align: center; width: 100%; }
         .meta-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-        .meta-table td { vertical-align: top; padding-bottom: 4px; font-size: 11pt; }
+        .meta-table td { vertical-align: top; padding-bottom: 4px; font-size: 12pt; }
         .surat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; width: 100%; margin-top: 15px; }
-        .surat-header-left { width: 50%; }
-        .surat-header-left table td { padding-bottom: 4px; font-size: 11pt; }
-        .surat-header-right { width: 45%; text-align: right; white-space: nowrap; }
-        .surat-header-alamat { width: 45%; text-align: right; font-size: 11pt; line-height: 1.4; font-weight: normal; }
+        .surat-header-left { width: 70%; }
+        .surat-header-left table td { padding-bottom: 4px; font-size: 12pt; }
+        .surat-header-alamat { width: 30%; text-align: right; font-size: 12pt; line-height: 1.4; font-weight: normal; }
+        
+        /* Agar tanggal surat tidak terpecah menjadi dua baris (tahun, bulan, tanggal dalam satu baris) */
+        #sd-tanggal, #nota-tanggal, #prev-sppd-tgl-surat {
+            white-space: nowrap;
+        }
+        
+        /* Yth. tidak bold */
+        .yth-text {
+            font-weight: normal !important;
+        }
+        
+        /* Penerima tidak bold */
+        #sd-penerima {
+            font-weight: normal !important;
+        }
+        
+        /* Tempat menjorok lebih dari "-" */
+        .tempat-indent {
+            margin-left: 20px !important;
+        }
+        
         .kontak-telepon-email { font-size: 10pt !important; }
-        .content-body { font-size: 11pt; line-height: 1.5; text-align: justify; margin-top: 20px; }
-        .content-body p { text-indent: 1.27cm; margin-bottom: 8px; margin-top: 0; margin-left: 0; margin-right: 0; font-size: 11pt; text-align: justify; line-height: 1.5; }
+        .content-body { font-size: 12pt; line-height: 1.5; text-align: justify; margin-top: 20px; }
+        .content-body p { text-indent: 1.27cm; margin-bottom: 8px; margin-top: 0; margin-left: 0; margin-right: 0; font-size: 12pt; text-align: justify; line-height: 1.5; }
         .content-body br { display: block; content: ""; margin-top: 8px; }
-        .tugas-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
-        .tugas-table td { vertical-align: top; font-size: 11pt; padding-bottom: 6px; text-align: left; }
-        .tugas-table .col-label { width: 100px; font-weight: bold; vertical-align: top; }
-        .tugas-table .col-content { padding-left: 8px; }
-        .memberi-tugas { text-align: left; font-weight: bold; margin: 15px 0 8px 0; font-size: 11pt; text-transform: uppercase; }
-        .tembusan-section { clear: both; margin-top: 60px; font-size: 11pt; width: 100%; }
+        
+        /* ===== PERBAIKAN UNTUK SURAT TUGAS: TANDA : SEJAJAR, MEMBERI TUGAS CENTER ===== */
+        .tugas-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 12px; 
+        }
+        .tugas-table td { 
+            vertical-align: top; 
+            font-size: 12pt; 
+            padding-bottom: 6px; 
+            text-align: left; 
+        }
+        .tugas-table .col-label { 
+            width: 100px; 
+            vertical-align: top;
+            text-align: right;
+            padding-right: 8px;
+            font-weight: normal !important;
+        }
+        .tugas-table .sep-col {
+            width: 20px;
+            text-align: center;
+            vertical-align: top;
+        }
+        .tugas-table .col-content { 
+            padding-left: 8px; 
+            text-align: left;
+        }
+        .memberi-tugas { 
+            text-align: center; 
+            margin: 15px 0 8px 0; 
+            font-size: 12pt; 
+            font-weight: normal !important;
+            text-transform: none !important;
+        }
+        
+        .tembusan-section { clear: both; margin-top: 60px; font-size: 12pt; width: 100%; }
         .tembusan-title { margin-bottom: 6px; font-weight: bold; }
-        .tembusan-list-content { font-size: 11pt; }
+        .tembusan-list-content { font-size: 12pt; }
         .tembusan-item { margin-left: 20px; margin-bottom: 2px; }
         .sppd-header-right { text-align: right; margin-bottom: 12px; font-size: 11pt; }
         .sppd-header-table { border-collapse: collapse; margin-left: auto; margin-right: 0; }
@@ -1210,6 +1403,15 @@ date_default_timezone_set('Asia/Jakarta');
                 flex-wrap: wrap;
                 justify-content: center;
             }
+            .kop-sekretaris-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .kop-sekretaris-text {
+                text-align: center;
+                padding-right: 0;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1265,6 +1467,10 @@ date_default_timezone_set('Asia/Jakarta');
                 width: 215mm !important;
                 min-height: 330mm !important;
             }
+            #letter-preview.sppd-preview.sppd-belakang-active {
+                min-height: auto !important;
+                height: auto !important;
+            }
             .main-grid {
                 display: block;
             }
@@ -1277,6 +1483,107 @@ date_default_timezone_set('Asia/Jakarta');
             header {
                 display: none;
             }
+        }
+        
+        /* ===== TAMBAHAN: UKURAN FONT ISI SURAT 12PT UNTUK SEMUA SURAT SELAIN SPPD ===== */
+        /* Memastikan semua teks isi surat (non-SPPD) menggunakan font 12pt Tahoma */
+        #preview-surat-dinas,
+        #preview-nota,
+        #preview-tugas {
+            font-size: 12pt;
+        }
+        
+        #preview-surat-dinas .content-body p,
+        #preview-nota .content-body p,
+        #preview-tugas .content-body p,
+        #preview-surat-dinas .content-body div,
+        #preview-nota .content-body div,
+        #preview-tugas .content-body div {
+            font-size: 12pt;
+            line-height: 1.5;
+        }
+        
+        /* Tabel pada surat dinas, nota, tugas */
+        #preview-surat-dinas .meta-table td,
+        #preview-nota table td,
+        #preview-tugas .tugas-table td {
+            font-size: 12pt;
+        }
+        
+        /* Elemen lain seperti "Yth.", "Tempat", dll */
+        #preview-surat-dinas > div:first-child + div,
+        #preview-surat-dinas > div:first-child + div div,
+        #preview-surat-dinas .surat-header-alamat,
+        #preview-nota .judul-nota,
+        #preview-tugas .judul-tugas {
+            font-size: 12pt;
+        }
+        
+        /* Judul surat tetap 13pt */
+        .judul-nota, .judul-tugas, .judul-surat {
+            font-size: 13pt;
+        }
+        
+        /* Nomor surat center */
+        .nomor-surat-center {
+            font-size: 12pt;
+        }
+        
+        /* Nama penandatangan di SPPD depan (PPK) */
+        .signature-section .sign-name {
+            font-weight: normal !important;
+            text-decoration: none !important;
+        }
+
+        /* === TAMBAHAN: HILANGKAN BOLD PADA SEMUA TEKS HASIL ISI DI HALAMAN BELAKANG SPPD === */
+        #preview-sppd-belakang .sppd-value-fixed,
+        #preview-sppd-belakang .sppd-value-fixed-wrap,
+        #preview-sppd-belakang .sppd-label-fixed,
+        #preview-sppd-belakang .sppd-separator-fixed,
+        #preview-sppd-belakang .sppd-data-row-fixed span,
+        #preview-sppd-belakang .sppd-data-area-fixed div,
+        #preview-sppd-belakang .sppd-signature .nama,
+        #preview-sppd-belakang .sppd-signature .nip,
+        #preview-sppd-belakang .sppd-signature .jabatan,
+        #preview-sppd-belakang .sppd-signature-ppk .nama-ppk,
+        #preview-sppd-belakang .sppd-signature-ppk .nip-ppk,
+        #preview-sppd-belakang .sppd-signature-ppk .jabatan-ppk,
+        #preview-sppd-belakang .sppd-signature-ppk-kanan .nama-ppk-kanan,
+        #preview-sppd-belakang .sppd-signature-ppk-kanan .nip-ppk-kanan,
+        #preview-sppd-belakang .sppd-signature-ppk-kanan .jabatan-ppk-kanan,
+        #preview-sppd-belakang .sppd-keterangan-teks,
+        #preview-sppd-belakang #v-vi-keterangan,
+        #preview-sppd-belakang #v-catatan {
+            font-weight: normal !important;
+        }
+
+        /* --- STYLING PREMIUM UNTUK DROPDOWN JENIS SURAT --- */
+        .jenis-surat-select {
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            font-weight: 800 !important;
+            font-size: 1.1rem !important;
+            color: #1e3a6f !important;
+            background: linear-gradient(135deg, #ffffff, #f0f5ff) !important;
+            border: 2.5px solid #3498db !important;
+            border-radius: 16px !important;
+            padding: 16px 24px !important;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1) !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            letter-spacing: 0.5px !important;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .jenis-surat-select:hover {
+            border-color: #2196f3 !important;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.18) !important;
+            transform: translateY(-1px) !important;
+            background: #ffffff !important;
+        }
+        .jenis-surat-select:focus {
+            outline: none !important;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.25) !important;
+            border-color: #2196f3 !important;
         }
     </style>
 </head>
@@ -1292,14 +1599,22 @@ date_default_timezone_set('Asia/Jakarta');
                 </div>
             </div>
             
-            <div class="header-info">
-                <div class="header-info-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span><span class="value" id="current-date"></span></span>
+            <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start;">
+                <div class="header-info" style="margin-bottom: 0;">
+                    <div class="header-info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span><span class="value" id="current-date"></span></span>
+                    </div>
+                    <div class="header-info-item">
+                        <i class="fas fa-clock"></i>
+                        <span><span class="value" id="current-time"></span></span>
+                    </div>
                 </div>
-                <div class="header-info-item">
-                    <i class="fas fa-clock"></i>
-                    <span><span class="value" id="current-time"></span></span>
+                <!-- Tombol Arsip -->
+                <div style="display: flex; align-items: center; width: 100%; margin-top: 8px;">
+                    <button class="btn" onclick="openArchiveModal()" style="padding: 10px 22px; font-size: 14px; background: #ffffff; color: #1e2a43; border: 2.5px solid #ffc107; border-radius: 40px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.12); gap: 8px; display: inline-flex; align-items: center; width: auto; box-sizing: border-box; letter-spacing: 0.5px; transition: all 0.2s;" onmouseover="this.style.background='#f8fafc'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(0,0,0,0.18)';" onmouseout="this.style.background='#ffffff'; this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.12)';">
+                        <i class="fas fa-archive" style="font-size: 15px;"></i> Arsip Unduhan Surat
+                    </button>
                 </div>
             </div>
             
@@ -1325,12 +1640,13 @@ date_default_timezone_set('Asia/Jakarta');
             
             <!-- FORM INPUT - DIPERPANJANG -->
             <div class="card fade-in">
-                <!-- Jenis Surat -->
+                <div class="card-scroll-content">
+                    <!-- Jenis Surat -->
                 <div class="form-section">
                     <div class="form-section-title">
                         <i class="fas fa-file-alt"></i> 1. JENIS SURAT
                     </div>
-                    <select id="letter-type" onchange="checkLetterType()" style="font-weight:bold; background:white;">
+                    <select id="letter-type" onchange="checkLetterType()" class="jenis-surat-select">
                         <option value="SURAT DINAS">📄 SURAT DINAS</option>
                         <option value="NOTA DINAS">📝 NOTA DINAS</option>
                         <option value="SURAT TUGAS">✅ SURAT TUGAS</option>
@@ -1350,6 +1666,7 @@ date_default_timezone_set('Asia/Jakarta');
                             <select id="jabatan-penandatangan" onchange="updateJabatanFromSelect()">
                                 <option value="KETUA,">Ketua</option>
                                 <option value="SEKRETARIS,">Sekretaris</option>
+                                <option value="Plt. SEKRETARIS,">Plt. Sekretaris</option>
                             </select>
                         </div>
                         
@@ -1360,11 +1677,11 @@ date_default_timezone_set('Asia/Jakarta');
                             </div>
                             <div class="form-group">
                                 <label>Nama Lengkap Penandatangan *</label>
-                                <input type="text" id="input-nama-ttd" placeholder="Contoh: FAJAR RANDI YOGANANDA" oninput="updatePreview()">
+                                <input type="text" id="input-nama-ttd" placeholder="Masukkan Nama Lengkap Penandatangan" oninput="updatePreview()" value="">
                             </div>
                             <div class="form-group">
                                 <label>NIP Penandatangan</label>
-                                <input type="text" id="input-nip-ttd" placeholder="Contoh: 19730528 200501 1 007" oninput="updatePreview()">
+                                <input type="text" id="input-nip-ttd" placeholder="Contoh: 19730528 200501 1 007" oninput="updatePreview()" value="">
                             </div>
                             <div class="input-info">
                                 <i class="fas fa-info-circle"></i> Data ini akan muncul di tanda tangan surat.
@@ -1407,11 +1724,11 @@ date_default_timezone_set('Asia/Jakarta');
                         <div class="form-grid-2">
                             <div class="form-group">
                                 <label>Nomor Surat</label>
-                                <input type="text" id="nomor" placeholder="Contoh: XXX/RT.XX.X-ST/XXXX/XXXX" oninput="updatePreview()">
+                                <input type="text" id="nomor" placeholder="Contoh: XXX/RT.XX.X-ST/XXXX/XXXX" oninput="updatePreview()" value="">
                             </div>
                             <div class="form-group" id="group-tanggal-umum">
                                 <label>Tanggal Surat</label>
-                                <input type="text" id="tanggal" placeholder="Contoh: Pekalongan, 1 Jan 2024" oninput="updatePreview()">
+                                <input type="text" id="tanggal" placeholder="Contoh: Pekalongan, 1 Jan 2024" oninput="updatePreview()" value="">
                             </div>
                         </div>
                     </div>
@@ -1427,41 +1744,35 @@ date_default_timezone_set('Asia/Jakarta');
                             <div class="form-group">
                                 <label>Sifat Surat</label>
                                 <select id="sifat" onchange="updatePreview()">
-                                    <option value="Biasa">Biasa</option>
-                                    <option value="Penting" selected>Penting</option>
+                                    <option value="Biasa" selected>Biasa</option>
+                                    <option value="Penting">Penting</option>
                                     <option value="Segera">Segera</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Lampiran</label>
-                                <input type="text" id="lampiran" placeholder="Jumlah berkas lampiran" oninput="updatePreview()">
+                                <input type="text" id="lampiran" placeholder="Jumlah berkas lampiran" oninput="updatePreview()" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Perihal</label>
                             <textarea rows="3" id="perihal" oninput="updatePreview()" placeholder="Pokok persoalan surat"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label>Kepada Yth. (Penerima)</label>
+                            <input type="text" id="penerima" placeholder="Contoh: Kepala Dinas Pendidikan" oninput="updatePreview()" value="">
+                        </div>
                         <div class="form-grid-2">
                             <div class="form-group">
                                 <label>Tujuan Tempat</label>
-                                <input type="text" id="tujuan-tempat" placeholder="Lokasi tujuan" oninput="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>Alamat Kantor</label>
-                                <input type="text" id="alamat-kantor" placeholder="Alamat lengkap kantor" value="Jalan Sriwijaya No. 17 Pekalongan 51119" oninput="updatePreview()">
+                                <input type="text" id="tujuan-tempat" placeholder="Lokasi tujuan" oninput="updatePreview()" value="Tempat">
                             </div>
                         </div>
                         
                         <!-- KOLOM ISI SURAT DENGAN TEMPLATE -->
                         <div class="form-group-isi-surat">
                             <label><i class="fas fa-file-signature"></i> Isi Surat</label>
-                            <textarea id="isi" rows="10" oninput="updatePreview()" placeholder="Tulis isi surat di sini...">Tempat
-
-Sehubungan dengan.....(alinea pembuka).....
-
-Isi surat.....(alinea isi).....
-
-Demikian disampaikan.....(alinea penutup).....</textarea>
+                            <textarea id="isi" rows="10" oninput="updatePreview()" placeholder="Tulis isi surat di sini..."></textarea>
                         </div>
                     </div>
                     
@@ -1526,7 +1837,7 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                         <input type="text" id="sppd-lembar-manual" placeholder="Nomor lembar" oninput="updatePreview()">
                                     </div>
                                     <div class="sppd-form-header-item">
-                                        <label>KODE NO</label>
+                                        <label>Kode No. </label>
                                         <input type="text" id="sppd-kode-no" placeholder="Kode nomor SPPD" oninput="updatePreview()">
                                     </div>
                                     <div class="sppd-form-header-item" style="grid-column: span 2;">
@@ -1542,18 +1853,27 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                 <i class="fas fa-user-tie"></i> PEJABAT & PEGAWAI
                             </div>
                             <div class="form-group">
-                                <label><span class="label-num">1</span>Pejabat Pembuat Komitmen (PPK)</label>
-                                <input type="text" id="sppd-ppk" placeholder="Nama PPK" oninput="updatePreview()">
+                                <label><span class="label-num"><i class="fas fa-user-tie" style="margin-right:5px;"></i> 1</span>Nama Pejabat Pembuat Komitmen (PPK)</label>
+                                <input type="text" id="sppd-ppk-nama" placeholder="Nama PPK" oninput="updatePreview()">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><span class="label-num"><i class="fas fa-id-card" style="margin-right:5px;"></i> 2</span>NIP Pejabat Pembuat Komitmen (PPK)</label>
+                                <input type="text" id="sppd-ppk-nip" placeholder="NIP PPK" oninput="updatePreview()">
                             </div>
 
                             <div class="form-group">
-                                <label><span class="label-num">2</span>Pegawai yang Melaksanakan</label>
+                                <label><span class="label-num"><i class="fas fa-user" style="margin-right:5px;"></i> 3</span>Nama Pegawai yang Melaksanakan</label>
                                 <input type="text" id="sppd-nama" placeholder="Nama pegawai pelaksana" oninput="updatePreview()">
-                                <input type="text" id="sppd-nip" placeholder="NIP pegawai pelaksana" oninput="updatePreview()" style="margin-top:10px;">
                             </div>
 
                             <div class="form-group">
-                                <label><span class="label-num">3</span>Info Pangkat & Jabatan</label>
+                                <label><span class="label-num"><i class="fas fa-id-badge" style="margin-right:5px;"></i> 4</span>NIP Pegawai yang Melaksanakan</label>
+                                <input type="text" id="sppd-nip" placeholder="NIP pegawai pelaksana" oninput="updatePreview()">
+                            </div>
+
+                            <div class="form-group">
+                                <label><span class="label-num"><i class="fas fa-layer-group" style="margin-right:5px;"></i> 5</span>Info Pangkat & Jabatan</label>
                                 <input type="text" id="sppd-pangkat" placeholder="Pangkat/Golongan" oninput="updatePreview()">
                                 <input type="text" id="sppd-jabatan" placeholder="Jabatan/Instansi" oninput="updatePreview()" style="margin-top:10px;">
                                 <input type="text" id="sppd-biaya" placeholder="Tingkat biaya perjalanan dinas" oninput="updatePreview()" style="margin-top:10px;">
@@ -1565,23 +1885,23 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                 <i class="fas fa-route"></i> DETAIL PERJALANAN
                             </div>
                             <div class="form-group">
-                                <label><span class="label-num">4</span>Maksud Perjalanan Dinas</label>
+                                <label><span class="label-num"><i class="fas fa-bullseye" style="margin-right:5px;"></i> 6</span>Maksud Perjalanan Dinas</label>
                                 <textarea id="sppd-maksud" rows="2" placeholder="Tujuan perjalanan dinas" oninput="updatePreview()"></textarea>
                             </div>
 
                             <div class="form-group">
-                                <label><span class="label-num">5</span>Alat Angkut</label>
+                                <label><span class="label-num"><i class="fas fa-plane-departure" style="margin-right:5px;"></i> 7</span>Alat Angkut</label>
                                 <input type="text" id="sppd-transport" placeholder="Moda transportasi yang digunakan" oninput="updatePreview()">
                             </div>
 
                             <div class="form-group">
-                                <label><span class="label-num">6</span>Tempat Berangkat & Tujuan</label>
+                                <label><span class="label-num"><i class="fas fa-map-marked-alt" style="margin-right:5px;"></i> 8</span>Tempat Berangkat & Tujuan</label>
                                 <input type="text" id="sppd-berangkat" placeholder="Lokasi keberangkatan" oninput="updatePreview()">
                                 <input type="text" id="sppd-tujuan" placeholder="Lokasi tujuan" oninput="updatePreview()" style="margin-top:10px;">
                             </div>
 
                             <div class="form-group">
-                                <label><span class="label-num">7</span>Waktu Perjalanan</label>
+                                <label><span class="label-num"><i class="fas fa-calendar-alt" style="margin-right:5px;"></i> 9</span>Waktu Perjalanan</label>
                                 <input type="text" id="sppd-lama" placeholder="Durasi perjalanan" oninput="updatePreview()">
                                 <input type="text" id="sppd-tgl-berangkat" placeholder="Tanggal berangkat" oninput="updatePreview()" style="margin-top:10px;">
                                 <input type="text" id="sppd-tgl-kembali" placeholder="Tanggal kembali" oninput="updatePreview()" style="margin-top:10px;">
@@ -1593,7 +1913,7 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                 <i class="fas fa-users"></i> PENGIKUT
                             </div>
                             <div class="form-group">
-                                <label><span class="label-num">8</span>Pengikut (Tambah Manual)</label>
+                                <label><span class="label-num"><i class="fas fa-users" style="margin-right:5px;"></i> 10</span>Pengikut (Tambah Manual)</label>
                                 <div id="pengikut-container-input" style="margin-bottom:15px;"></div>
                                 <button type="button" class="btn btn-add" onclick="addPengikutRow()">
                                     <i class="fas fa-plus"></i> Tambah Pengikut
@@ -1606,13 +1926,13 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                 <i class="fas fa-money-bill-wave"></i> ANGGARAN
                             </div>
                             <div class="form-group">
-                                <label><span class="label-num">9</span>Anggaran</label>
+                                <label><span class="label-num"><i class="fas fa-money-bill-wave" style="margin-right:5px;"></i> 11</span>Anggaran</label>
                                 <input type="text" id="sppd-instansi" placeholder="Instansi pembebanan anggaran" oninput="updatePreview()">
                                 <input type="text" id="sppd-akun" placeholder="Kode akun anggaran" oninput="updatePreview()" style="margin-top:10px;">
                             </div>
 
                             <div class="form-group">
-                                <label><span class="label-num">10</span>Keterangan Lain-Lain</label>
+                                <label><span class="label-num"><i class="fas fa-sticky-note" style="margin-right:5px;"></i> 12</span>Keterangan Lain-Lain</label>
                                 <textarea id="sppd-lain" rows="2" placeholder="Informasi tambahan jika diperlukan" oninput="updatePreview()"></textarea>
                             </div>
                         </div>
@@ -1644,11 +1964,11 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                 <i class="fas fa-info-circle"></i> Isi sesuai dengan format halaman belakang SPPD.
                             </div>
                             
-                            <!-- KOLOM I - BERANGKAT (KANAN) - SEKRETARIS -->
+                            <!-- KOLOM I - BERANGKAT (KANAN) - PPK -->
                             <div style="background:white; padding:20px; border-radius:16px; margin-bottom:20px; border:2px solid #e8ecf2;">
                                 <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
                                     <span style="background:#6c757d; color:white; width:35px; height:35px; display:flex; align-items:center; justify-content:center; border-radius:50%; font-weight:bold;">I</span>
-                                    <span style="font-weight:bold; color:#2c3e50;">KOLOM I - BERANGKAT (SEKRETARIS)</span>
+                                    <span style="font-weight:bold; color:#2c3e50;">KOLOM I - BERANGKAT (PPK)</span>
                                 </div>
                                 <div class="form-grid-2">
                                     <div class="form-group">
@@ -1672,15 +1992,15 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                 </div>
                                 <div class="form-grid-2">
                                     <div class="form-group">
-                                        <label>Nama Sekretaris</label>
-                                        <input type="text" id="back-berangkat-nama-kanan" placeholder="Isi nama sekretaris" oninput="updatePreview()">
+                                        <label>Nama PPK</label>
+                                        <input type="text" id="back-berangkat-nama-kanan" placeholder="Isi nama PPK" oninput="updatePreview()">
                                     </div>
                                     <div class="form-group">
-                                        <label>NIP Sekretaris</label>
-                                        <input type="text" id="back-berangkat-nip-kanan" placeholder="Isi NIP sekretaris" oninput="updatePreview()">
+                                        <label>NIP PPK</label>
+                                        <input type="text" id="back-berangkat-nip-kanan" placeholder="Isi NIP PPK" oninput="updatePreview()">
                                     </div>
                                 </div>
-                                <div class="input-info">* Bagian ini untuk tanda tangan Sekretaris di kolom kanan</div>
+                                <div class="input-info">* Bagian ini untuk tanda tangan PPK di kolom kanan</div>
                             </div>
                             
                             <!-- KOLOM II - TIBA (KIRI) dan BERANGKAT (KANAN) -->
@@ -1902,7 +2222,8 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 <div id="button-container" class="button-container">
                     <!-- Tombol akan ditampilkan sesuai jenis surat oleh JavaScript, tapi untuk SPPD hanya tombol PDF -->
                 </div>
-            </div>
+                </div> <!-- CLOSE card-scroll-content -->
+            </div> <!-- CLOSE card -->
 
             <!-- PREVIEW AREA - TETAP SAMA -->
             <div class="preview-wrapper fade-in">
@@ -1921,20 +2242,20 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                 <div class="surat-header-left">
                                     <table class="meta-table" style="margin:0;">
                                         <tr><td style="width:100px;">Nomor</td><td class="sep-col" style="width:20px;">:</td><td id="sd-nomor">...</td></tr>
-                                        <tr><td>Sifat</td><td>:</td><td id="sd-sifat">...</td></tr>
-                                        <tr><td>Lampiran</td><td>:</td><td id="sd-lampiran">...</td></tr>
-                                        <tr><td>Perihal</td><td>:</td><td id="sd-perihal" style="vertical-align: top;">...</td></tr>
+                                        <tr><td style="width:100px;">Sifat</td><td class="sep-col" style="width:20px;">:</td><td id="sd-sifat">...</td></tr>
+                                        <tr><td style="width:100px;">Lampiran</td><td class="sep-col" style="width:20px;">:</td><td id="sd-lampiran">...</td></tr>
+                                        <tr><td style="width:100px;">Perihal</td><td class="sep-col" style="width:20px;">:</td><td id="sd-perihal" style="vertical-align: top;">...</td></tr>
                                     </table>
                                 </div>
                                 <div class="surat-header-alamat" id="sd-alamat-kanan">
-                                    <span id="sd-alamat-teks">Jalan Sriwijaya No. 17 Pekalongan 51119</span><br>
                                     <span id="sd-tanggal" style="font-weight: normal; font-size: 12pt;"></span>
                                 </div>
                             </div>
-                            <div style="margin-bottom: 30px;">
-                                <div style="font-size: 12pt;">Yth.</div>
-                                <div id="sd-kepada" style="margin-left: 0; font-weight: bold; font-size: 12pt; margin-top: 6px;">...</div>
-                                <div style="margin-left: 30px; font-size: 12pt; margin-top: 6px;" id="sd-tempat">Tempat</div>
+                            <div style="margin-bottom: 25px; line-height: 1.5; font-size: 12pt;">
+                                <div class="yth-text">Yth.</div>
+                                <div id="sd-penerima" style="margin-left: 0;">...</div>
+                                <div>di -</div>
+                                <div id="sd-tempat" style="margin-left: 1.27cm;">Tempat</div>
                             </div>
                             <div class="content-body" id="sd-isi">...</div>
                         </div>
@@ -1962,36 +2283,16 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                             <div class="nomor-surat-center">Nomor: <span id="prev-nomor-tugas">...</span></div>
                             
                             <table class="tugas-table">
-                                <tr>
-                                    <td class="col-label">Menimbang</td>
-                                    <td class="sep-col" style="width:20px;">:</td>
-                                    <td id="prev-menimbang" class="col-content"></td>
-                                </tr>
-                                <tr>
-                                    <td class="col-label">Dasar</td>
-                                    <td>:</td>
-                                    <td id="prev-dasar" class="col-content"></td>
-                                </tr>
+                                <tr><td class="col-label">Menimbang</td><td class="sep-col">:</td><td id="prev-menimbang" class="col-content"></td></tr>
+                                <tr><td class="col-label">Dasar</td><td class="sep-col">:</td><td id="prev-dasar" class="col-content"></td></tr>
                             </table>
                             
-                            <div class="memberi-tugas">MEMBERI TUGAS :</div>
+                            <div class="memberi-tugas">Memberi Tugas :</div>
                             
                             <table class="tugas-table">
-                                <tr>
-                                    <td class="col-label">Kepada</td>
-                                    <td>:</td>
-                                    <td id="prev-kepada-tugas" class="col-content"></td>
-                                </tr>
-                                <tr>
-                                    <td class="col-label">Untuk</td>
-                                    <td>:</td>
-                                    <td id="prev-untuk" class="col-content"></td>
-                                </tr>
-                                <tr>
-                                    <td class="col-label">Anggaran</td>
-                                    <td>:</td>
-                                    <td id="prev-anggaran" class="col-content"></td>
-                                </tr>
+                                <tr><td class="col-label">Kepada</td><td class="sep-col">:</td><td id="prev-kepada-tugas" class="col-content"></td></tr>
+                                <tr><td class="col-label">Untuk</td><td class="sep-col">:</td><td id="prev-untuk" class="col-content"></td></tr>
+                                <tr><td class="col-label">Anggaran</td><td class="sep-col">:</td><td id="prev-anggaran" class="col-content"></td></tr>
                             </table>
                         </div>
 
@@ -1999,21 +2300,9 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                         <div id="preview-sppd-depan" class="hidden">
                             <div class="sppd-header-right">
                                 <table class="sppd-header-table">
-                                    <tr>
-                                        <td class="label">Lembar Ke</td>
-                                        <td>:</td>
-                                        <td id="prev-sppd-lembar">...</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label">KODE NO</td>
-                                        <td>:</td>
-                                        <td id="prev-sppd-kode-no">...</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label">Nomor</td>
-                                        <td>:</td>
-                                        <td id="prev-sppd-nomor">...</td>
-                                    </tr>
+                                    <tr><td class="label">Lembar Ke</td><td>:</td><td id="prev-sppd-lembar">...</td></tr>
+                                    <tr><td class="label">Kode No. </td><td>:</td><td id="prev-sppd-kode-no">...</td></tr>
+                                    <tr><td class="label">Nomor</td><td>:</td><td id="prev-sppd-nomor">...</td></tr>
                                 </table>
                             </div>
                             
@@ -2026,16 +2315,17 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                     <col class="col-content">
                                 </colgroup>
 
-                                <tr><td class="col-no">1</td><td class="col-label">Pejabat Pembuat Komitmen</td><td><span id="prev-sppd-ppk">...</span></td></tr>
-                                <tr><td class="col-no">2</td><td class="col-label">Nama/NIP Pegawai yang melaksanakan Perjalanan Dinas</td><td><div id="prev-sppd-nama" style="font-weight:bold;">...</div><div id="prev-sppd-nip" class="nip-spacer">NIP. ...</div></td></tr>
-                                <tr><td class="col-no">3</td><td class="col-label">a. Pangkat / golongan<br>b. Jabatan/Instansi<br>c. Tingkat Biaya Perjalanan Dinas</td><td>a. <span id="prev-sppd-pangkat">...</span><br>b. <span id="prev-sppd-jabatan">...</span><br>c. <span id="prev-sppd-biaya">...</span></td></tr>
-                                <tr><td class="col-no">4</td><td class="col-label">Maksud Perjalanan Dinas</td><td><span id="prev-sppd-maksud">...</span></td></tr>
-                                <tr><td class="col-no">5</td><td class="col-label">Alat angkut yang dipergunakan</td><td><span id="prev-sppd-transport">...</span></td></tr>
-                                <tr><td class="col-no">6</td><td class="col-label">a. Tempat berangkat<br>b. Tempat tujuan</td><td>a. <span id="prev-sppd-berangkat">...</span><br>b. <span id="prev-sppd-tujuan">...</span></td></tr>
-                                <tr><td class="col-no">7</td><td class="col-label">a. Lamanya Perjalanan Dinas<br>b. Tanggal Berangkat<br>c. Tanggal harus kembali/tiba di tempat baru *)</td><td>a. <span id="prev-sppd-lama">...</span><br>b. <span id="prev-sppd-tgl-berangkat">...</span><br>c. <span id="prev-sppd-tgl-kembali">...</span></td></tr>
+                                <tr><td class="col-no">1</td><td class="col-label">Pejabat Pembuat Komitmen</td><td><span id="prev-sppd-ppk-nama">...</span></td></tr>
+                                <tr><td class="col-no">2</td><td class="col-label">Nama Pegawai yang melaksanakan Perjalanan Dinas</td><td><div id="prev-sppd-nama" style="font-weight:bold;">...</div></td></tr>
+                                <tr><td class="col-no">3</td><td class="col-label">NIP Pegawai yang melaksanakan Perjalanan Dinas</td><td><div id="prev-sppd-nip" class="nip-spacer">NIP. ...</div></td></tr>
+                                <tr><td class="col-no">4</td><td class="col-label">a. Pangkat / golongan<br>b. Jabatan/Instansi<br>c. Tingkat Biaya Perjalanan Dinas</td><td>a. <span id="prev-sppd-pangkat">...</span><br>b. <span id="prev-sppd-jabatan">...</span><br>c. <span id="prev-sppd-biaya">...</span></td></tr>
+                                <tr><td class="col-no">5</td><td class="col-label">Maksud Perjalanan Dinas</td><td><span id="prev-sppd-maksud">...</span></td></tr>
+                                <tr><td class="col-no">6</td><td class="col-label">Alat angkut yang dipergunakan</td><td><span id="prev-sppd-transport">...</span></td></tr>
+                                <tr><td class="col-no">7</td><td class="col-label">a. Tempat berangkat<br>b. Tempat tujuan</td><td>a. <span id="prev-sppd-berangkat">...</span><br>b. <span id="prev-sppd-tujuan">...</span></td></tr>
+                                <tr><td class="col-no">8</td><td class="col-label">a. Lamanya Perjalanan Dinas<br>b. Tanggal Berangkat<br>c. Tanggal harus kembali/tiba di tempat baru *)</td><td>a. <span id="prev-sppd-lama">...</span><br>b. <span id="prev-sppd-tgl-berangkat">...</span><br>c. <span id="prev-sppd-tgl-kembali">...</span></td></tr>
                                 
                                 <tr>
-                                    <td class="col-no" style="vertical-align: top;">8</td>
+                                    <td class="col-no" style="vertical-align: top;">9</td>
                                     <td colspan="2" class="td-nested-wrapper">
                                         <table class="table-nested-8">
                                             <colgroup>
@@ -2052,8 +2342,8 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                     </td>
                                 </tr>
 
-                                <tr><td class="col-no">9</td><td class="col-label">Pembebanan anggaran :<br>a. Instansi<br>b. Kegiatan/Output/Akun</td><td><br>a. <span id="prev-sppd-instansi">...</span><br>b. <span id="prev-sppd-akun">...</span></td></tr>
-                                <tr><td class="col-no">10</td><td class="col-label">Keterangan lain - lain</td><td><span id="prev-sppd-lain"></span></td></tr>
+                                <tr><td class="col-no">10</td><td class="col-label">Pembebanan anggaran :<br>a. Instansi<br>b. Kegiatan/Output/Akun</td><td><br>a. <span id="prev-sppd-instansi">...</span><br>b. <span id="prev-sppd-akun">...</span></td></tr>
+                                <tr><td class="col-no">11</td><td class="col-label">Keterangan lain - lain</td><td><span id="prev-sppd-lain"></span></td></tr>
                             </table>
 
                             <div class="signature-section" style="margin-top:20px;">
@@ -2062,9 +2352,11 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                     Pada Tanggal &nbsp;&nbsp;: <span id="prev-sppd-tgl-surat">...</span>
                                 </div>
                                 <div class="sign-jabatan" style="margin-top:10px; margin-bottom:5px;">Pejabat Pembuat Komitmen</div>
-                                <div class="sign-spacer" style="height:35px;"></div>
+                                <!-- Space 2x enter di bawah tulisan PPK -->
+                                <div class="ppk-signature-spacer"></div>
+                                <div class="ppk-signature-spacer"></div>
                                 <div class="sign-name" id="ppk-sign-name">...</div>
-                                <div class="sign-nip" id="ppk-sign-nip">NIP. -</div>
+                                <div class="sign-nip" id="ppk-sign-nip">NIP. ...</div>
                             </div>
                             <div style="clear:both;"></div>
                         </div>
@@ -2084,22 +2376,22 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                     <span class="sppd-roman-number-fixed">I.</span>
                                                     <div class="sppd-data-area-fixed">
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">Berangkat dari</span>
+                                                            <span class="sppd-label-fixed" style="line-height: 1.1;">Berangkat dari<br>(Tempat Kedudukan)</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b1-asal2"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">ke</span>
+                                                            <span class="sppd-label-fixed">Ke</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b1-ke2"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">pada tanggal</span>
+                                                            <span class="sppd-label-fixed">Pada Tanggal</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b1-tgl2"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">kepala</span>
+                                                            <span class="sppd-label-fixed">Kepala</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b1-kepala2"></span>
                                                         </div>
@@ -2108,7 +2400,7 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                             </div>
                                             <div class="signature-area">
                                                 <div class="sppd-signature sekretaris-column">
-                                                    <div class="jabatan">SEKRETARIS</div>
+                                                    <div class="jabatan">Pejabat Pembuat Komitmen</div>
                                                     <div class="nama" id="v-b1-nama2"></div>
                                                     <div class="nip" id="v-b1-nip2"></div>
                                                 </div>
@@ -2130,12 +2422,12 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                             <span class="sppd-value-fixed" id="v-b2-tiba"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">pada tanggal</span>
+                                                            <span class="sppd-label-fixed">Pada Tanggal</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b2-tiba-tgl"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">kepala</span>
+                                                            <span class="sppd-label-fixed">Kepala</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b2-tiba-kepala"></span>
                                                         </div>
@@ -2161,17 +2453,17 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                         <span class="sppd-value-fixed" id="v-b2-berangkat"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">ke</span>
+                                                        <span class="sppd-label-fixed">Ke</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b2-berangkat-ke"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">pada tanggal</span>
+                                                        <span class="sppd-label-fixed">Pada Tanggal</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b2-berangkat-tgl"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">kepala</span>
+                                                        <span class="sppd-label-fixed">Kepala</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b2-berangkat-kepala"></span>
                                                     </div>
@@ -2201,12 +2493,12 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                             <span class="sppd-value-fixed" id="v-b3-tiba"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">pada tanggal</span>
+                                                            <span class="sppd-label-fixed">Pada Tanggal</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b3-tiba-tgl"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">kepala</span>
+                                                            <span class="sppd-label-fixed">Kepala</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b3-tiba-kepala"></span>
                                                         </div>
@@ -2232,17 +2524,17 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                         <span class="sppd-value-fixed" id="v-b3-berangkat"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">ke</span>
+                                                        <span class="sppd-label-fixed">Ke</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b3-berangkat-ke"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">pada tanggal</span>
+                                                        <span class="sppd-label-fixed">Pada Tanggal</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b3-berangkat-tgl"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">kepala</span>
+                                                        <span class="sppd-label-fixed">Kepala</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b3-berangkat-kepala"></span>
                                                     </div>
@@ -2272,12 +2564,12 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                             <span class="sppd-value-fixed" id="v-b4-tiba"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">pada tanggal</span>
+                                                            <span class="sppd-label-fixed">Pada Tanggal</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b4-tiba-tgl"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">kepala</span>
+                                                            <span class="sppd-label-fixed">Kepala</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b4-tiba-kepala"></span>
                                                         </div>
@@ -2303,17 +2595,17 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                         <span class="sppd-value-fixed" id="v-b4-berangkat"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">ke</span>
+                                                        <span class="sppd-label-fixed">Ke</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b4-berangkat-ke"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">pada tanggal</span>
+                                                        <span class="sppd-label-fixed">Pada Tanggal</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b4-berangkat-tgl"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">kepala</span>
+                                                        <span class="sppd-label-fixed">Kepala</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b4-berangkat-kepala"></span>
                                                     </div>
@@ -2343,12 +2635,12 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                             <span class="sppd-value-fixed" id="v-b5-tiba"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">pada tanggal</span>
+                                                            <span class="sppd-label-fixed">Pada Tanggal</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b5-tiba-tgl"></span>
                                                         </div>
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">kepala</span>
+                                                            <span class="sppd-label-fixed">Kepala</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b5-tiba-kepala"></span>
                                                         </div>
@@ -2374,17 +2666,17 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                                         <span class="sppd-value-fixed" id="v-b5-berangkat"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">ke</span>
+                                                        <span class="sppd-label-fixed">Ke</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b5-berangkat-ke"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">pada tanggal</span>
+                                                        <span class="sppd-label-fixed">Pada Tanggal</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b5-berangkat-tgl"></span>
                                                     </div>
                                                     <div class="sppd-data-row-fixed">
-                                                        <span class="sppd-label-fixed">kepala</span>
+                                                        <span class="sppd-label-fixed">Kepala</span>
                                                         <span class="sppd-separator-fixed">:</span>
                                                         <span class="sppd-value-fixed" id="v-b5-berangkat-kepala"></span>
                                                     </div>
@@ -2401,37 +2693,47 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                     </td>
                                 </tr>
                                 <!-- BARIS 6: KOLOM VI - KIRI (TIBA AKHIR & PPK) - TEMPAT KEDUDUKAN SELALU TAMPIL DENGAN TITIK DUA SEJAJAR -->
+                                <!-- BARIS 6A: KOLOM VI - TEKS (TIBA AKHIR & KETERANGAN) -->
                                 <tr>
-                                    <td style="vertical-align:top; width:50%; border:1px solid black; background:white; padding:5px 6px;">
-                                        <div class="sppd-data-content">
+                                    <td style="vertical-align:top; width:50%; border:1px solid black; border-bottom:none; background:white; padding:5px 6px;">
+                                        <div class="sppd-data-content" style="height:auto;">
                                             <div class="data-area">
                                                 <div class="sppd-roman-header-fixed">
                                                     <span class="sppd-roman-number-fixed">VI.</span>
                                                     <div class="sppd-data-area-fixed">
                                                         <!-- Tiba di dengan : sejajar -->
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">Tiba di</span>
+                                                            <span class="sppd-label-fixed" style="line-height: 1.1;">Tiba di<br>(Tempat Kedudukan)</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b6-tiba"></span>
                                                         </div>
                                                         
-                                                        <!-- Tempat Kedudukan (selalu tampil dengan titik dua sejajar) -->
-                                                        <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">Tempat Kedudukan</span>
-                                                            <span class="sppd-separator-fixed">:</span>
-                                                            <span class="sppd-value-fixed-wrap" id="v-b6-tempat-kedudukan"></span>
-                                                        </div>
-                                                        
                                                         <!-- Pada tanggal dengan : sejajar -->
                                                         <div class="sppd-data-row-fixed">
-                                                            <span class="sppd-label-fixed">pada tanggal</span>
+                                                            <span class="sppd-label-fixed">Pada Tanggal</span>
                                                             <span class="sppd-separator-fixed">:</span>
                                                             <span class="sppd-value-fixed" id="v-b6-tiba-tgl"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="signature-area">
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align:top; width:50%; border:1px solid black; border-bottom:none; background:white; padding:5px 6px;">
+                                        <div class="sppd-data-content" style="height:auto;">
+                                            <div class="data-area">
+                                                <div style="text-align:justify; font-size:9pt; line-height:1.3; margin-bottom:5px; text-align:left; padding-left:0;">
+                                                    <span id="v-vi-keterangan">Telah diperiksa dengan keterangan bahwa perjalanan tersebut atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- BARIS 6B: KOLOM VI - TANDA TANGAN -->
+                                <tr>
+                                    <td style="vertical-align:bottom; width:50%; border:1px solid black; border-top:none; background:white; padding:5px 6px;">
+                                        <div class="sppd-data-content" style="height:auto;">
+                                            <div class="signature-area" style="margin-top:0;">
                                                 <div class="sppd-signature-ppk">
                                                     <div class="jabatan-ppk">Pejabat Pembuat Komitmen</div>
                                                     <div class="space-ttd" style="display:none;"></div>
@@ -2441,14 +2743,9 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="vertical-align:top; width:50%; border:1px solid black; background:white; padding:5px 6px;">
-                                        <div class="sppd-data-content">
-                                            <div class="data-area">
-                                                <div style="text-align:justify; font-size:9pt; line-height:1.3; margin-bottom:5px; text-align:left; padding-left:0;">
-                                                    <span id="v-vi-keterangan">Telah diperiksa dengan keterangan bahwa perjalanan tersebut atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.</span>
-                                                </div>
-                                            </div>
-                                            <div class="signature-area">
+                                    <td style="vertical-align:bottom; width:50%; border:1px solid black; border-top:none; background:white; padding:5px 6px;">
+                                        <div class="sppd-data-content" style="height:auto;">
+                                            <div class="signature-area" style="margin-top:0;">
                                                 <div class="sppd-signature-ppk-kanan">
                                                     <div class="jabatan-ppk-kanan">Pejabat Pembuat Komitmen</div>
                                                     <div class="space-ttd-kanan"></div>
@@ -2459,18 +2756,17 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- BARIS 7: CATATAN LAIN -->
-                                <tr style="height:auto;">
-                                    <td colspan="2" style="border:1px solid black; padding:4px 6px; background:white; border-bottom:1px solid black; height:35px !important; text-align:left;">
-                                        <span style="font-weight:bold;">VII. Catatan Lain :</span>
-                                        <span id="v-catatan" style="margin-left:5px;"></span>
-                                    </td>
-                                </tr>
-                                <!-- BARIS 8: PERHATIAN -->
-                                <tr>
-                                    <td colspan="2" style="border:1px solid black; padding:5px 6px; background:white; border-top:1px double black; text-align:left;">
-                                        <b>VIII. PERHATIAN</b><br>
-                                        <span style="font-size: 8.5pt;">PPK yang menerbitkan SPD, pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan tanggal berangkat/tiba, serta bendahara pengeluaran bertanggung jawab berdasarkan peraturan-peraturan Keuangan Negara apabila negara menderita kerugian akibat kesalahan, kelalaian, dan kealpaannya.</span>
+                                <!-- BARIS 7 & 8: CATATAN LAIN & PERHATIAN (Digabung agar tidak terpisah halaman) -->
+                                <tr style="page-break-inside: avoid; break-inside: avoid;">
+                                    <td colspan="2" style="border:1px solid black; padding:0; background:white; text-align:left;">
+                                        <div style="padding:4px 6px; border-bottom:1px solid black; min-height:35px;">
+                                            <span style="font-weight:bold;">VII. Catatan Lain :</span>
+                                            <span id="v-catatan" style="margin-left:5px;"></span>
+                                        </div>
+                                        <div style="padding:5px 6px;">
+                                            <b>VIII. PERHATIAN</b><br>
+                                            <span style="font-size: 8.5pt;">PPK yang menerbitkan SPD, pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan tanggal berangkat/tiba, serta bendahara pengeluaran bertanggung jawab berdasarkan peraturan-peraturan Keuangan Negara apabila negara menderita kerugian akibat kesalahan, kelalaian, dan kealpaannya.</span>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -2509,29 +2805,43 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
         const NIP_SEKRETARIS = "19730528 200501 1 007";
         const TEMPLATE_ISI_SURAT = "Tempat\n\nSehubungan dengan.....(alinea pembuka).....\n\nIsi surat.....(alinea isi).....\n\nDemikian disampaikan.....(alinea penutup).....";
 
+        // Default constants for SURAT DINAS to match user image
+        const DEFAULT_DINAS_NOMOR = "";
+        const DEFAULT_DINAS_TANGGAL = "";
+        const DEFAULT_DINAS_SIFAT = "Biasa";
+        const DEFAULT_DINAS_LAMPIRAN = "";
+        const DEFAULT_DINAS_PERIHAL = "";
+        const DEFAULT_DINAS_PENERIMA = "";
+        const DEFAULT_DINAS_TEMPAT = "Tempat";
+        const DEFAULT_DINAS_ISI = "";
+        const DEFAULT_DINAS_TEMBUSAN = "";
+        const DEFAULT_DINAS_NAMA_TTD = "";
+        const DEFAULT_DINAS_NIP_TTD = "";
+        const DEFAULT_DINAS_JABATAN_TTD = "KETUA,";
+
         // Global variables
         let pengikutList = [];
 
         // Initialize form
         function initForm() {
             // Set default values for signatory
-            document.getElementById('input-nama-ttd').value = NAMA_KETUA;
-            document.getElementById('input-nip-ttd').value = "";
-            document.getElementById('jabatan-penandatangan').value = "KETUA,";
+            document.getElementById('input-nama-ttd').value = DEFAULT_DINAS_NAMA_TTD;
+            document.getElementById('input-nip-ttd').value = DEFAULT_DINAS_NIP_TTD;
+            document.getElementById('jabatan-penandatangan').value = DEFAULT_DINAS_JABATAN_TTD;
             
             // Update hidden jabatan
-            document.getElementById('input-jabatan').value = "KETUA,";
+            document.getElementById('input-jabatan').value = DEFAULT_DINAS_JABATAN_TTD;
             
             // Set default isi surat dengan template
-            document.getElementById('isi').value = TEMPLATE_ISI_SURAT;
+            document.getElementById('isi').value = DEFAULT_DINAS_ISI;
             
             checkLetterType();
             
             // Focus on first input
             document.getElementById('nomor').focus();
             
-            // Set default tembusan kosong
-            document.getElementById('tembusan').value = '';
+            // Set default tembusan
+            document.getElementById('tembusan').value = DEFAULT_DINAS_TEMBUSAN;
             
             // Set semua input halaman belakang kosong (tanpa default)
             clearBackInputs();
@@ -2599,16 +2909,17 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 
                 // Reset select elements
                 document.getElementById('letter-type').value = 'SURAT DINAS';
-                document.getElementById('jabatan-penandatangan').value = 'KETUA,';
-                document.getElementById('sifat').value = 'Penting';
+                document.getElementById('jabatan-penandatangan').value = DEFAULT_DINAS_JABATAN_TTD;
+                document.getElementById('sifat').value = DEFAULT_DINAS_SIFAT;
                 
                 // Reset signatory to default
-                document.getElementById('input-nama-ttd').value = NAMA_KETUA;
-                document.getElementById('input-nip-ttd').value = "";
-                document.getElementById('input-jabatan').value = "KETUA,";
+                document.getElementById('input-nama-ttd').value = DEFAULT_DINAS_NAMA_TTD;
+                document.getElementById('input-nip-ttd').value = DEFAULT_DINAS_NIP_TTD;
+                document.getElementById('input-jabatan').value = DEFAULT_DINAS_JABATAN_TTD;
                 
                 // Set default isi surat dengan template
-                document.getElementById('isi').value = TEMPLATE_ISI_SURAT;
+                document.getElementById('isi').value = DEFAULT_DINAS_ISI;
+                document.getElementById('tembusan').value = DEFAULT_DINAS_TEMBUSAN;
                 
                 // Clear pengikut
                 pengikutList = [];
@@ -2629,13 +2940,22 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
         // Fungsi untuk menampilkan tombol sesuai jenis surat - HANYA TOMBOL PDF
         function updateButtons() {
             const buttonContainer = document.getElementById('button-container');
+            const type = document.getElementById('letter-type').value;
             
-            // Hanya tampilkan satu tombol PDF untuk semua jenis surat
-            buttonContainer.innerHTML = `
-                <button class="btn btn-primary" onclick="downloadPDF()">
-                    <i class="fas fa-file-pdf"></i> CETAK PDF
-                </button>
-            `;
+            if (type === 'SPPD') {
+                buttonContainer.innerHTML = `
+                    <button class="btn btn-primary btn-full" onclick="downloadPDF()">
+                        <i class="fas fa-file-pdf"></i> CETAK SPPD (2 HALAMAN)
+                    </button>
+                `;
+            } else {
+                buttonContainer.innerHTML = `
+                    <button class="btn btn-primary" onclick="downloadPDF()">
+                        <i class="fas fa-file-pdf"></i> CETAK PDF
+                    </button>
+                `;
+                buttonContainer.style.display = 'flex';
+            }
         }
 
         function checkLetterType() {
@@ -2666,9 +2986,30 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 document.getElementById('general-inputs').style.display = 'block';
                 // Set template untuk isi surat tugas
                 document.getElementById('isi').value = TEMPLATE_ISI_SURAT;
+            } else if (type === 'SURAT DINAS') {
+                document.getElementById('form-general').classList.remove('hidden');
+                // Tampilkan "INFORMASI SURAT" untuk Surat Dinas
+                document.getElementById('general-inputs').style.display = 'block';
+                
+                // Pre-populate with values from the image
+                document.getElementById('nomor').value = DEFAULT_DINAS_NOMOR;
+                document.getElementById('tanggal').value = DEFAULT_DINAS_TANGGAL;
+                document.getElementById('sifat').value = DEFAULT_DINAS_SIFAT;
+                document.getElementById('lampiran').value = DEFAULT_DINAS_LAMPIRAN;
+                document.getElementById('perihal').value = DEFAULT_DINAS_PERIHAL;
+                document.getElementById('penerima').value = DEFAULT_DINAS_PENERIMA;
+                document.getElementById('tujuan-tempat').value = DEFAULT_DINAS_TEMPAT;
+                document.getElementById('isi').value = DEFAULT_DINAS_ISI;
+                document.getElementById('tembusan').value = DEFAULT_DINAS_TEMBUSAN;
+                
+                // Signatory defaults for Surat Dinas
+                document.getElementById('input-nama-ttd').value = DEFAULT_DINAS_NAMA_TTD;
+                document.getElementById('input-nip-ttd').value = DEFAULT_DINAS_NIP_TTD;
+                document.getElementById('jabatan-penandatangan').value = DEFAULT_DINAS_JABATAN_TTD;
+                document.getElementById('input-jabatan').value = DEFAULT_DINAS_JABATAN_TTD;
             } else {
                 document.getElementById('form-general').classList.remove('hidden');
-                // Tampilkan "INFORMASI SURAT" untuk Surat Dinas dan Nota
+                // Tampilkan "INFORMASI SURAT" untuk Nota Dinas
                 document.getElementById('general-inputs').style.display = 'block';
                 // Set template untuk isi surat
                 document.getElementById('isi').value = TEMPLATE_ISI_SURAT;
@@ -2684,13 +3025,16 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
             const mode = document.querySelector('input[name="sppd_page"]:checked').value;
             const divDepan = document.getElementById('inputs-depan');
             const divBelakang = document.getElementById('inputs-belakang');
+            const buttonContainer = document.getElementById('button-container');
 
             if (mode === 'depan') {
                 divDepan.classList.remove('hidden');
                 divBelakang.classList.add('hidden');
+                buttonContainer.style.display = 'none';
             } else {
                 divDepan.classList.add('hidden');
                 divBelakang.classList.remove('hidden');
+                buttonContainer.style.display = 'flex';
             }
             updatePreview();
         }
@@ -2831,8 +3175,28 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                     </div>
                 `;
             }
+            // SURAT DINAS dengan Sekretaris - LOGO DI KIRI LEBIH KE KIRI DAN TEKS CENTER
+            else if (type === 'SURAT DINAS' && isSekretaris) {
+                kopEl.className = 'kop-container kop-surat-sekretaris';
+                kopEl.innerHTML = `
+                    <div class="kop-sekretaris-header">
+                        <div class="kop-sekretaris-logo">
+                            <img src="logo-kpu.png" alt="Logo KPU">
+                        </div>
+                        <div class="kop-sekretaris-text">
+                            <h1>KOMISI PEMILIHAN UMUM</h1>
+                            <h2>KOTA PEKALONGAN</h2>
+                            <div class="alamat">Jalan Sriwijaya No. 17 Pekalongan 51119</div>
+                        </div>
+                    </div>
+                    <div class="kop-sekretaris-kontak kontak-telepon-email">
+                        <div>Telp. (0285) 4416076</div>
+                        <div>Email: kota_pekalongan@kpu.go.id</div>
+                    </div>
+                `;
+            }
             // SURAT DINAS dengan Ketua
-            else if (type === 'SURAT DINAS' && !isSekretaris) {
+            else if (type === 'SURAT DINAS') {
                 kopEl.className = 'kop-container kop-center';
                 kopEl.innerHTML = `
                     <div class="kop-top">
@@ -2844,40 +3208,22 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                     </div>
                 `;
             }
-            // SURAT DINAS dengan Sekretaris
-            else if (type === 'SURAT DINAS' && isSekretaris) {
-                kopEl.className = 'kop-container kop-center';
-                kopEl.innerHTML = `
-                    <div class="kop-top">
-                        <img src="logo-kpu.png" alt="Logo" class="kop-logo-img" style="width:75px; height:75px; object-fit:contain;">
-                        <div class="kop-text">
-                            <h1>KOMISI PEMILIHAN UMUM</h1>
-                            <h2>KOTA PEKALONGAN</h2>
-                            <div class="kop-alamat-detail">
-                                Jalan Sriwijaya No. 17 Pekalongan 51119
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kontak-row kontak-telepon-email">
-                        <div class="kontak-left">Telp. (0285) 4416076</div>
-                        <div class="kontak-right">Email: kota_pekalongan@kpu.go.id</div>
-                    </div>
-                `;
-            }
-            // NOTA DINAS dengan Sekretaris
+            // NOTA DINAS dengan Sekretaris - LOGO DI KIRI LEBIH KE KIRI DAN TEKS CENTER
             else if (type === 'NOTA DINAS' && isSekretaris) {
-                kopEl.className = 'kop-container kop-center';
+                kopEl.className = 'kop-container kop-surat-sekretaris';
                 kopEl.innerHTML = `
-                    <div class="kop-top">
-                        <img src="logo-kpu.png" alt="Logo" class="kop-logo-img" style="width:75px; height:75px; object-fit:contain;">
-                        <div class="kop-text">
+                    <div class="kop-sekretaris-header">
+                        <div class="kop-sekretaris-logo">
+                            <img src="logo-kpu.png" alt="Logo KPU">
+                        </div>
+                        <div class="kop-sekretaris-text">
                             <h1>KOMISI PEMILIHAN UMUM</h1>
                             <h2>KOTA PEKALONGAN</h2>
                         </div>
                     </div>
-                    <div class="kontak-row kontak-telepon-email">
-                        <div class="kontak-left">Telp. (0285) 4416076</div>
-                        <div class="kontak-right">Email: kota_pekalongan@kpu.go.id</div>
+                    <div class="kop-sekretaris-kontak kontak-telepon-email">
+                        <div>Telp. (0285) 4416076</div>
+                        <div>Email: kota_pekalongan@kpu.go.id</div>
                     </div>
                 `;
             }
@@ -2941,22 +3287,23 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
 
             const tglText = document.getElementById('tanggal').value;
             const nomorVal = document.getElementById('nomor').value;
-            const alamatKantor = document.getElementById('alamat-kantor')?.value || 'Jalan Sriwijaya No. 17 Pekalongan 51119';
+            const alamatKantor = document.getElementById('alamat-kantor')?.value || 'Jalan Sriwijaya No. 17 Pekalongan 51119'; // masih ada untuk fallback, tapi tidak dipakai di tampilan
 
             if (type === 'SURAT DINAS') {
                 document.getElementById('preview-surat-dinas').classList.remove('hidden');
                 
-                document.getElementById('sd-kepada').innerHTML = "...";
+                // Ambil nilai penerima
+                const penerimaVal = document.getElementById('penerima').value;
+                document.getElementById('sd-penerima').innerHTML = penerimaVal || "...";
+                
                 document.getElementById('sd-nomor').innerText = nomorVal;
                 document.getElementById('sd-sifat').innerText = document.getElementById('sifat').value;
                 document.getElementById('sd-lampiran').innerText = document.getElementById('lampiran').value;
                 document.getElementById('sd-perihal').innerText = document.getElementById('perihal').value;
-                document.getElementById('sd-tempat').innerText = document.getElementById('tujuan-tempat').value;
+                document.getElementById('sd-tempat').innerText = document.getElementById('tujuan-tempat').value || "Tempat";
                 document.getElementById('sd-isi').innerHTML = formatIsiSurat(document.getElementById('isi').value);
                 
-                // Set alamat dan tanggal
-                const alamatTeks = document.getElementById('sd-alamat-teks');
-                if (alamatTeks) alamatTeks.innerText = alamatKantor;
+                // Set tanggal saja, alamat sudah di kop
                 document.getElementById('sd-tanggal').innerText = tglText;
                 
                 const tembusanVal = document.getElementById('tembusan').value;
@@ -2968,7 +3315,10 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
             } else if (type === 'NOTA DINAS') {
                 document.getElementById('preview-nota').classList.remove('hidden');
                 
-                document.getElementById('nota-kepada').innerHTML = "...";
+                // Untuk Nota Dinas, kita gunakan field penerima yang sama
+                const penerimaVal = document.getElementById('penerima').value;
+                document.getElementById('nota-kepada').innerHTML = penerimaVal || "...";
+                
                 // Set "Dari" berdasarkan role yang dipilih dari input manual
                 if (isSekretaris) {
                     document.getElementById('nota-dari').innerText = 'Sekretaris KPU Kota Pekalongan';
@@ -3007,24 +3357,31 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 }
                 
                 // Untuk Surat Tugas, tanda tangan menggunakan data dari form penandatangan manual
+                // Tampilkan tanggal surat di atas jabatan penandatangan
                 if(tglText) {
                     const tempatTanggal = tglText.includes(',') ? tglText : `Pekalongan, ${tglText}`;
                     document.getElementById('sign-jabatan').innerHTML = `<div style="margin-bottom: 12px;">${tempatTanggal}</div>` + jabatan;
+                } else {
+                    document.getElementById('sign-jabatan').innerHTML = jabatan;
                 }
 
             } else if (type === 'SPPD') {
                 document.getElementById('general-signature').style.display = 'none';
                 const sppdPage = document.querySelector('input[name="sppd_page"]:checked').value;
                 
-                const ppkName = document.getElementById('sppd-ppk').value;
+                const ppkNama = document.getElementById('sppd-ppk-nama').value;
+                const ppkNip = document.getElementById('sppd-ppk-nip').value;
 
                 // Tampilkan hanya halaman yang dipilih sesuai radio button
+                const previewContainer = document.getElementById('letter-preview');
                 if (sppdPage === 'depan') {
                     document.getElementById('preview-sppd-depan').classList.remove('hidden');
                     document.getElementById('preview-sppd-belakang').classList.add('hidden');
+                    previewContainer.classList.remove('sppd-belakang-active');
                 } else {
                     document.getElementById('preview-sppd-depan').classList.add('hidden');
                     document.getElementById('preview-sppd-belakang').classList.remove('hidden');
+                    previewContainer.classList.add('sppd-belakang-active');
                 }
                 
                 // Update data untuk halaman depan
@@ -3032,9 +3389,9 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 document.getElementById('prev-sppd-kode-no').innerText = document.getElementById('sppd-kode-no').value;
                 document.getElementById('prev-sppd-nomor').innerText = document.getElementById('sppd-nomor').value;
 
-                document.getElementById('prev-sppd-ppk').innerText = ppkName;
+                document.getElementById('prev-sppd-ppk-nama').innerText = ppkNama;
                 document.getElementById('prev-sppd-nama').innerText = document.getElementById('sppd-nama').value;
-                document.getElementById('prev-sppd-nip').innerText = "NIP. " + document.getElementById('sppd-nip').value;
+                document.getElementById('prev-sppd-nip').innerHTML = "NIP. " + document.getElementById('sppd-nip').value;
                 
                 document.getElementById('prev-sppd-pangkat').innerText = document.getElementById('sppd-pangkat').value;
                 document.getElementById('prev-sppd-jabatan').innerText = document.getElementById('sppd-jabatan').value;
@@ -3063,7 +3420,7 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                         <td class="n8-col-nama" style="border-bottom:1px solid #000; padding:3px 4px; font-size: 10pt;">${num}. ${p.nama}</td>
                         <td class="n8-col-tgl" style="border-bottom:1px solid #000; padding:3px 4px; text-align:center; font-size: 10pt;">${p.tgl}</td>
                         <td class="n8-col-ket" style="border-bottom:1px solid #000; padding:3px 4px; text-align:center; font-size: 10pt;">${p.ket}</td>
-                    </tr>`;
+                    <tr>`;
                 }
                 document.getElementById('prev-list-pengikut-body').innerHTML = htmlList;
 
@@ -3072,8 +3429,9 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 document.getElementById('prev-sppd-dikeluarkan').innerText = place;
                 document.getElementById('prev-sppd-tgl-surat').innerText = date;
                 
-                document.getElementById('ppk-sign-name').innerText = ppkName;
-                document.getElementById('ppk-sign-nip').innerText = "NIP. -";
+                // Format nama PPK dengan tanda kurung, tidak tebal dan tidak bergaris bawah (CSS sudah diatur)
+                document.getElementById('ppk-sign-name').innerText = ppkNama ? `(${ppkNama})` : "( )";
+                document.getElementById('ppk-sign-nip').innerHTML = ppkNip ? 'NIP. ' + ppkNip : 'NIP. -';
 
                 // Update data untuk halaman belakang
                 document.getElementById('v-b1-asal2').innerText = document.getElementById('back-berangkat-dari-kanan').value || '';
@@ -3122,24 +3480,19 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 // Update data untuk kolom VI - Tempat Kedudukan selalu ditampilkan
                 document.getElementById('v-b6-tiba').innerText = document.getElementById('back-vi-tiba').value || '';
                 
-                const tempatKedudukan = document.getElementById('back-vi-tempat-kedudukan').value;
-                const tempatKedudukanSpan = document.getElementById('v-b6-tempat-kedudukan');
-                
-                // Jika tempat kedudukan diisi, tampilkan isinya, jika tidak tampilkan "-"
-                if (tempatKedudukan && tempatKedudukan.trim() !== '') {
-                    tempatKedudukanSpan.innerText = tempatKedudukan;
-                } else {
-                    tempatKedudukanSpan.innerText = " ";
-                }
-                
                 document.getElementById('v-b6-tiba-tgl').innerText = document.getElementById('back-vi-tiba-tgl').value || '';
-                document.getElementById('v-ppk-nama').innerText = document.getElementById('back-vi-nama').value || '';
+                
+                // Nama PPK di halaman belakang (kiri) dengan format (Nama)
+                const backNamaPpk = document.getElementById('back-vi-nama').value;
+                document.getElementById('v-ppk-nama').innerText = backNamaPpk ? `(${backNamaPpk})` : "( )";
                 document.getElementById('v-ppk-nip').innerHTML = document.getElementById('back-vi-nip').value ? 'NIP. ' + document.getElementById('back-vi-nip').value : '';
                 
-                const keteranganText = document.getElementById('back-vi-keterangan')?.value || 'Telah diperiksa dengan keterangan bahwa perjalanan tersebut atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.  ';
-                document.getElementById('v-vi-keterangan').innerText = keteranganText;
+                const keteranganText = document.getElementById('back-vi-keterangan')?.value || 'Telah diperiksa dengan keterangan bahwa perjalanan tersebut atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.';
+                document.getElementById('v-vi-keterangan').innerHTML = keteranganText + '<div style="height:10px;"></div>';
                 
-                document.getElementById('v-vi-nama-kanan').innerText = document.getElementById('back-vi-nama-kanan')?.value || '';
+                // Nama PPK di halaman belakang (kanan) dengan format (Nama)
+                const backNamaPpkKanan = document.getElementById('back-vi-nama-kanan')?.value;
+                document.getElementById('v-vi-nama-kanan').innerText = backNamaPpkKanan ? `(${backNamaPpkKanan})` : "( )";
                 document.getElementById('v-vi-nip-kanan').innerHTML = document.getElementById('back-vi-nip-kanan')?.value ? 'NIP. ' + document.getElementById('back-vi-nip-kanan').value : '';
                 
                 document.getElementById('v-catatan').innerText = document.getElementById('back-catatan').value || '';
@@ -3147,18 +3500,53 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 return;
             }
 
-            // Update tanda tangan umum untuk Surat Dinas, Nota Dinas, dan Surat Tugas
-            document.getElementById('sign-jabatan').innerText = jabatan;
-            document.getElementById('sign-name').innerText = document.getElementById('input-nama-ttd').value || "( Nama )";
-            
-            const nipVal = document.getElementById('input-nip-ttd').value;
-            const nipEl = document.getElementById('sign-nip');
-            
-            if(nipVal && nipVal.trim() !== "") {
-                nipEl.style.display = "block";
-                nipEl.innerText = "NIP. " + nipVal;
+            // Update tanda tangan umum untuk Surat Dinas, Nota Dinas, dan Surat Tugas (khusus Surat Tugas sudah ditangani di atas, namun untuk amannya tetap di sini)
+            // Tapi untuk Surat Tugas sudah diisi di bagian khusus, jadi abaikan untuk type SURAT TUGAS.
+            if (type !== 'SURAT TUGAS') {
+                document.getElementById('sign-jabatan').innerText = jabatan;
+                const namaTtd = document.getElementById('input-nama-ttd').value;
+                if (type === 'SURAT DINAS') {
+                    document.getElementById('sign-name').innerText = namaTtd ? namaTtd : "Nama";
+                    document.getElementById('sign-name').style.textDecoration = "underline";
+                    document.getElementById('sign-name').style.fontWeight = "bold";
+                } else {
+                    document.getElementById('sign-name').innerText = namaTtd ? `(${namaTtd})` : "( Nama )";
+                    document.getElementById('sign-name').style.textDecoration = "none";
+                    document.getElementById('sign-name').style.fontWeight = "normal";
+                }
+                
+                const nipVal = document.getElementById('input-nip-ttd').value;
+                const nipEl = document.getElementById('sign-nip');
+                
+                if(nipVal && nipVal.trim() !== "") {
+                    nipEl.style.display = "block";
+                    if (nipVal.trim() === "*") {
+                        nipEl.innerText = "*";
+                        nipEl.style.textAlign = "center";
+                    } else {
+                        nipEl.innerText = "NIP. " + nipVal;
+                    }
+                } else {
+                    nipEl.style.display = "none";
+                }
             } else {
-                nipEl.style.display = "none";
+                // Untuk Surat Tugas, tanda tangan sudah diatur di bagian khusus, namun pastikan sign-name dan sign-nip tetap diisi
+                const namaTtd = document.getElementById('input-nama-ttd').value;
+                document.getElementById('sign-name').innerText = namaTtd ? `(${namaTtd})` : "( Nama )";
+                document.getElementById('sign-name').style.textDecoration = "none";
+                document.getElementById('sign-name').style.fontWeight = "normal";
+                const nipVal = document.getElementById('input-nip-ttd').value;
+                const nipEl = document.getElementById('sign-nip');
+                if(nipVal && nipVal.trim() !== "") {
+                    nipEl.style.display = "block";
+                    if (nipVal.trim() === "*") {
+                        nipEl.innerText = "*";
+                    } else {
+                        nipEl.innerText = "NIP. " + nipVal;
+                    }
+                } else {
+                    nipEl.style.display = "none";
+                }
             }
         }
 
@@ -3184,13 +3572,18 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                         const label = parts[0].trim();
                         const value = parts.slice(1).join(":").trim();
                         
+                        // Capitalize label
+                        const capLabel = label.charAt(0).toUpperCase() + label.slice(1);
+                        
                         html += `<div style="display: flex; margin-left: 0; margin-bottom: 8px;">
-                                    <div style="width: 120px; font-weight: normal;">${label}</div>
+                                    <div style="width: 120px; font-weight: normal;">${capLabel}</div>
                                     <div style="width: 15px; text-align: center;">:</div>
                                     <div style="flex: 1;">${value}</div>
                                  </div>`;
                     } else {
-                        html += `<p style="text-indent: 1.27cm; margin-bottom: 8px; margin-top: 0; text-align: justify; line-height: 1.5;">${trimmedP}</p>`;
+                        // Capitalize first letter of paragraph automatically
+                        const capitalizedP = trimmedP.charAt(0).toUpperCase() + trimmedP.slice(1);
+                        html += `<p style="text-indent: 1.27cm; margin-bottom: 8px; margin-top: 0; text-align: justify; line-height: 1.5;">${capitalizedP}</p>`;
                     }
                 }
             });
@@ -3202,6 +3595,8 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
         function downloadPDF() {
             try {
                 const element = document.getElementById('letter-preview');
+                const divDepan = document.getElementById('preview-sppd-depan');
+                const divBelakang = document.getElementById('preview-sppd-belakang');
                 
                 if (!element) {
                     throw new Error("Elemen preview tidak ditemukan");
@@ -3212,11 +3607,9 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 
                 let fileName = `Surat_${type.replace(/\s+/g, '_')}_${timestamp}.pdf`;
                 const isSppd = (type === 'SPPD');
-                const sppdPage = isSppd ? document.querySelector('input[name="sppd_page"]:checked').value : null;
-                const isSppdBelakang = (isSppd && sppdPage === 'belakang');
                 
                 if (isSppd) {
-                    fileName = `SPPD_${sppdPage === 'depan' ? 'Halaman_Depan' : 'Halaman_Belakang'}_${timestamp}.pdf`;
+                    fileName = `SPPD_Lengkap_${timestamp}.pdf`;
                 }
 
                 const btn = document.querySelector('.btn-primary');
@@ -3236,90 +3629,130 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                     fontSize: element.style.fontSize,
                     transform: element.style.transform,
                     zoom: element.style.zoom,
-                    lineHeight: element.style.lineHeight
+                    lineHeight: element.style.lineHeight,
+                    backgroundColor: element.style.backgroundColor,
+                    boxShadow: element.style.boxShadow
                 };
+                
+                // Simpan state display asli untuk sppd depan & belakang
+                const depanOriginalDisplay = divDepan ? divDepan.style.display : '';
+                const belakangOriginalDisplay = divBelakang ? divBelakang.style.display : '';
+                const depanOriginalClass = divDepan ? divDepan.className : '';
+                const belakangOriginalClass = divBelakang ? divBelakang.className : '';
                 
                 // Reset dan set style untuk PDF - UKURAN BERDASARKAN JENIS SURAT
                 if (isSppd) {
-                    // Ukuran F4 untuk SPPD (215mm x 330mm)
-                    element.style.width = '215mm';
-                    element.style.minHeight = '330mm';
-                    element.style.maxWidth = '215mm';
-                    
-                    // KURANGI PADDING AGAR LEBIH KECIL
-                    if (isSppdBelakang) {
-                        element.style.padding = '3mm 5mm 3mm 8mm'; // Padding lebih kecil
-                        element.style.fontSize = '8.5pt'; // Font size tetap
-                    } else {
-                        element.style.padding = '4mm 6mm 4mm 10mm'; // Padding lebih kecil untuk depan
-                        element.style.fontSize = '10pt';
+                    // Paksa tampilkan keduanya
+                    if (divDepan) {
+                        divDepan.classList.remove('hidden');
+                        divDepan.style.display = 'block';
+                        divDepan.style.padding = '5mm 6mm 5mm 10mm'; // Margin atas 5mm, bawah 5mm
+                        divDepan.style.fontSize = '12pt';
+                        divDepan.style.boxSizing = 'border-box';
+                    }
+                    if (divBelakang) {
+                        divBelakang.classList.remove('hidden');
+                        divBelakang.style.display = 'block';
+                        // Padding untuk belakang (top 10mm, right 5mm, bottom 5mm, left 8mm)
+                        divBelakang.style.padding = '10mm 5mm 0mm 8mm'; // Padding bawah 0 agar tidak meluap ke halaman 3
+                        divBelakang.style.fontSize = '10pt';
+                        divBelakang.style.boxSizing = 'border-box';
+                        
+                        // Menambahkan page-break sebelum elemen belakang menggunakan CSS saja
+                        divBelakang.style.pageBreakBefore = 'always';
+                        // Hapus class agar tidak terjadi double page break
+                        divBelakang.classList.remove('html2pdf__page-break');
                     }
                     
-                    element.classList.add('padding-sppd');
+                    // Hilangkan padding pada elemen induk karena padding sekarang diatur di child
+                    element.style.width = '215mm';
+                    element.style.maxWidth = '215mm';
+                    element.style.padding = '0'; 
+                    element.style.minHeight = 'auto'; // Pastikan tidak dipaksa melebihi konten
                     element.classList.add('sppd-preview');
                     
                     // Optimasi khusus untuk SPPD halaman belakang
-                    if (isSppdBelakang) {
-                        const backGrid = element.querySelector('.sppd-back-grid');
+                    if (divBelakang) {
+                        const backGrid = divBelakang.querySelector('.sppd-back-grid');
                         if (backGrid) {
                             backGrid.style.width = '100%';
                             backGrid.style.tableLayout = 'fixed';
-                            backGrid.style.fontSize = '8.5pt';
+                            backGrid.style.fontSize = '10pt';
                             
                             const cells = backGrid.querySelectorAll('td');
                             cells.forEach(cell => {
-                                cell.style.padding = '1px 2px'; // Padding sel lebih kecil
-                                cell.style.fontSize = '8.5pt';
-                                cell.style.lineHeight = '1.2';
+                                cell.style.padding = '0px 1px';
+                                cell.style.fontSize = '10pt';
+                                cell.style.lineHeight = '1.0';
+                            });
+                            
+                            // Kembalikan padding khusus untuk Baris 7 (Catatan Lain) dan Baris 8 (Perhatian) agar teks tidak menempel garis
+                            const baris7_8 = backGrid.querySelectorAll('tr:nth-child(7) td, tr:nth-child(8) td');
+                            baris7_8.forEach(cell => {
+                                cell.style.padding = '3px 6px';
                             });
                         }
                         
-                        // Kurangi margin baris data
-                        const dataRows = element.querySelectorAll('.sppd-data-row-fixed');
+                        // Perkecil juga font untuk elemen-elemen tertentu
+                        const dataRows = divBelakang.querySelectorAll('.sppd-data-row-fixed');
                         dataRows.forEach(row => {
-                            row.style.marginBottom = '2px'; // Margin lebih kecil
-                            row.style.minHeight = '16px';
+                            row.style.marginBottom = '0px';
+                            row.style.minHeight = '12px';
+                        });
+                        
+                        // Label dan value
+                        const labels = divBelakang.querySelectorAll('.sppd-label-fixed, .sppd-value-fixed, .sppd-value-fixed-wrap');
+                        labels.forEach(label => {
+                            label.style.fontSize = '10pt';
                         });
                         
                         // Perpanjang titik-titik
-                        const titikKiri = element.querySelectorAll('.titik-ttd.kiri-turun');
+                        const titikKiri = divBelakang.querySelectorAll('.titik-ttd.kiri-turun');
                         titikKiri.forEach(titik => {
-                            titik.innerText = '(.............................)'; // 25 titik
-                            titik.style.marginTop = '15px'; // Kurangi jarak
+                            titik.innerText = '(.............................)';
+                            titik.style.marginTop = '2px';
+                            titik.style.fontSize = '10pt';
                         });
                         
-                        const titikKanan = element.querySelectorAll('.titik-ttd.kanan-turun');
+                        const titikKanan = divBelakang.querySelectorAll('.titik-ttd.kanan-turun');
                         titikKanan.forEach(titik => {
-                            titik.innerText = '(.............................)'; // 25 titik
-                            titik.style.marginTop = '15px'; // Kurangi jarak
+                            titik.innerText = '(.............................)';
+                            titik.style.marginTop = '2px';
+                            titik.style.fontSize = '10pt';
                         });
                         
                         // Kurangi jarak signature
-                        const signatures = element.querySelectorAll('.sppd-signature-ppk, .sppd-signature-ppk-kanan');
+                        const signatures = divBelakang.querySelectorAll('.sppd-signature-ppk, .sppd-signature-ppk-kanan');
                         signatures.forEach(sig => {
-                            sig.style.marginTop = '-10px';
+                            sig.style.marginTop = '-15px';
                         });
                         
-                        const sekretaris = element.querySelectorAll('.sppd-signature.sekretaris-column .jabatan');
-                        sekretaris.forEach(jab => {
-                            jab.style.marginBottom = '30px'; // Kurangi jarak
+                        // JS Override dihapus agar mengikuti CSS sepenuhnya
+                        // const sekretaris = divBelakang.querySelectorAll('.sppd-signature.sekretaris-column .jabatan');
+                        // sekretaris.forEach(jab => {
+                        //     jab.style.marginBottom = '5px';
+                        //     jab.style.fontSize = '10pt';
+                        // });
+                        
+                        const sekretarisNama = divBelakang.querySelectorAll('.sppd-signature.sekretaris-column .nama, .sppd-signature.sekretaris-column .nip');
+                        sekretarisNama.forEach(el => {
+                            el.style.fontSize = '10pt';
                         });
                         
-                        const ppkJabatan = element.querySelectorAll('.jabatan-ppk, .jabatan-ppk-kanan');
-                        ppkJabatan.forEach(jab => {
-                            jab.style.marginBottom = '40px'; // Kurangi jarak
+                        // JS Override dihapus agar mengikuti CSS sepenuhnya
+                        // const ppkJabatan = divBelakang.querySelectorAll('.jabatan-ppk, .jabatan-ppk-kanan');
+                        // ppkJabatan.forEach(jab => {
+                        //     jab.style.marginBottom = '5px';
+                        //     jab.style.fontSize = '10pt';
+                        // });
+                        
+                        const ppkNama = divBelakang.querySelectorAll('.nama-ppk, .nama-ppk-kanan, .nip-ppk, .nip-ppk-kanan');
+                        ppkNama.forEach(el => {
+                            el.style.fontSize = '10pt';
                         });
                         
                         // TAMBAHKAN JARAK UNTUK PEJABAT PEMBUAT KOMITMEN (KE BAWAH)
-                        const ppkJabatanKiri = element.querySelectorAll('.sppd-back-grid tr:nth-child(6) td:first-child .sppd-signature-ppk .jabatan-ppk');
-                        ppkJabatanKiri.forEach(jab => {
-                            jab.style.marginBottom = '60px'; // Tambah jarak jadi lebih besar
-                        });
-                        
-                        const ppkJabatanKanan = element.querySelectorAll('.sppd-back-grid tr:nth-child(6) td:last-child .sppd-signature-ppk-kanan .jabatan-ppk-kanan');
-                        ppkJabatanKanan.forEach(jab => {
-                            jab.style.marginBottom = '60px'; // Tambah jarak jadi lebih besar
-                        });
+                        // JS Override dihapus agar mengikuti CSS sepenuhnya
                     }
                 } else {
                     // Ukuran A4 untuk surat lainnya (210mm x 297mm)
@@ -3327,7 +3760,7 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                     element.style.minHeight = '297mm';
                     element.style.maxWidth = '210mm';
                     element.style.padding = '5mm 10mm 5mm 15mm';
-                    element.style.fontSize = '11pt';
+                    element.style.fontSize = '12pt';
                     element.classList.remove('sppd-preview');
                 }
                 
@@ -3350,7 +3783,7 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                 
                 // Opsi PDF
                 const opt = {
-                    margin: 0,
+                    margin: isSppd ? [0, 0, 0, 0] : [0, 0, 15, 0], // Hapus margin bawah agar tidak memancing halaman kosong
                     filename: fileName,
                     image: { type: 'jpeg', quality: 1.0 },
                     html2canvas: { 
@@ -3367,27 +3800,22 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                         x: 0,
                         y: 0,
                         onclone: function(clonedDoc) {
-                            if (isSppd && isSppdBelakang) {
-                                const clonedTitikKiri = clonedDoc.querySelectorAll('.titik-ttd.kiri-turun');
-                                clonedTitikKiri.forEach(titik => {
-                                    titik.innerText = '(.............................)';
-                                });
-                                
-                                const clonedTitikKanan = clonedDoc.querySelectorAll('.titik-ttd.kanan-turun');
-                                clonedTitikKanan.forEach(titik => {
-                                    titik.innerText = '(.............................)';
-                                });
-                                
-                                // Tambah jarak untuk pejabat pembuat komitmen di clone
-                                const clonedPpkKiri = clonedDoc.querySelectorAll('.sppd-back-grid tr:nth-child(6) td:first-child .sppd-signature-ppk .jabatan-ppk');
-                                clonedPpkKiri.forEach(jab => {
-                                    jab.style.marginBottom = '60px';
-                                });
-                                
-                                const clonedPpkKanan = clonedDoc.querySelectorAll('.sppd-back-grid tr:nth-child(6) td:last-child .sppd-signature-ppk-kanan .jabatan-ppk-kanan');
-                                clonedPpkKanan.forEach(jab => {
-                                    jab.style.marginBottom = '60px';
-                                });
+                            if (isSppd) {
+                                const clonedBelakang = clonedDoc.getElementById('preview-sppd-belakang');
+                                if (clonedBelakang) {
+                                    const clonedTitikKiri = clonedBelakang.querySelectorAll('.titik-ttd.kiri-turun');
+                                    clonedTitikKiri.forEach(titik => {
+                                        titik.innerText = '(.............................)';
+                                    });
+                                    
+                                    const clonedTitikKanan = clonedBelakang.querySelectorAll('.titik-ttd.kanan-turun');
+                                    clonedTitikKanan.forEach(titik => {
+                                        titik.innerText = '(.............................)';
+                                    });
+                                    
+                                    // Tambah jarak untuk pejabat pembuat komitmen di clone
+                                    // JS Override dihapus agar mengikuti CSS sepenuhnya
+                                }
                             }
                         }
                     },
@@ -3407,11 +3835,85 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                         .then(() => {
                             console.log('PDF berhasil dibuat');
                             
-                            // Kembalikan style asli
+                            // Simpan ke Arsip Unduhan
+                            try {
+                                const type = document.getElementById('letter-type').value;
+                                const nomor = (type === 'SPPD') ? document.getElementById('sppd-nomor').value : document.getElementById('nomor').value;
+                                const tglSurat = (type === 'SPPD') ? document.getElementById('sppd-tgl-validasi').value : document.getElementById('tanggal').value;
+                                
+                                const formData = {};
+                                const inputs = document.querySelectorAll('input, select, textarea');
+                                inputs.forEach(input => {
+                                    if (input.id) {
+                                        if (input.type === 'radio') {
+                                            if (input.checked) {
+                                                formData[input.name] = input.value;
+                                            }
+                                        } else {
+                                            formData[input.id] = input.value;
+                                        }
+                                    }
+                                });
+                                
+                                if (type === 'SPPD') {
+                                    formData['pengikutList'] = pengikutList;
+                                }
+
+                                const downloadTime = new Date().toLocaleString('id-ID', { 
+                                    day: 'numeric', 
+                                    month: 'short', 
+                                    year: 'numeric', 
+                                    hour: '2-digit', 
+                                    minute: '2-digit' 
+                                });
+
+                                const archiveItem = {
+                                    id: timestamp,
+                                    fileName: fileName,
+                                    type: type,
+                                    nomor: nomor || '-',
+                                    tglSurat: tglSurat || '-',
+                                    downloadTime: downloadTime,
+                                    formData: formData
+                                };
+
+                                let archive = JSON.parse(localStorage.getItem('letterArchive') || '[]');
+                                archive.unshift(archiveItem);
+                                if (archive.length > 20) {
+                                    archive.pop();
+                                }
+                                localStorage.setItem('letterArchive', JSON.stringify(archive));
+                                updateArchiveBadge();
+                            } catch (e) {
+                                console.error('Error saving to archive:', e);
+                            }
+                            
+                            // Kembalikan style asli element utama
                             Object.keys(originalStyles).forEach(key => {
                                 element.style[key] = originalStyles[key];
                             });
                             element.className = originalStyles.className;
+                            
+                            // Kembalikan style depan dan belakang
+                            if (isSppd) {
+                                if (divDepan) {
+                                    divDepan.className = depanOriginalClass;
+                                    divDepan.style.display = '';
+                                    divDepan.style.padding = '';
+                                    divDepan.style.fontSize = '';
+                                    divDepan.style.minHeight = '';
+                                    divDepan.style.boxSizing = '';
+                                }
+                                if (divBelakang) {
+                                    divBelakang.className = belakangOriginalClass;
+                                    divBelakang.style.display = '';
+                                    divBelakang.style.padding = '';
+                                    divBelakang.style.fontSize = '';
+                                    divBelakang.style.boxSizing = '';
+                                    divBelakang.style.pageBreakBefore = '';
+                                    divBelakang.classList.remove('html2pdf__page-break');
+                                }
+                            }
                             
                             btn.innerHTML = originalText;
                             btn.disabled = false;
@@ -3419,11 +3921,32 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
                         .catch((error) => {
                             console.error('Error detail:', error);
                             
-                            // Kembalikan style asli
+                            // Kembalikan style asli element utama
                             Object.keys(originalStyles).forEach(key => {
                                 element.style[key] = originalStyles[key];
                             });
                             element.className = originalStyles.className;
+                            
+                            // Kembalikan style depan dan belakang
+                            if (isSppd) {
+                                if (divDepan) {
+                                    divDepan.className = depanOriginalClass;
+                                    divDepan.style.display = '';
+                                    divDepan.style.padding = '';
+                                    divDepan.style.fontSize = '';
+                                    divDepan.style.minHeight = '';
+                                    divDepan.style.boxSizing = '';
+                                }
+                                if (divBelakang) {
+                                    divBelakang.className = belakangOriginalClass;
+                                    divBelakang.style.display = '';
+                                    divBelakang.style.padding = '';
+                                    divBelakang.style.fontSize = '';
+                                    divBelakang.style.boxSizing = '';
+                                    divBelakang.style.pageBreakBefore = '';
+                                    divBelakang.classList.remove('html2pdf__page-break');
+                                }
+                            }
                             
                             alert('Gagal membuat PDF. Silakan coba lagi.\nError: ' + error.message);
                             btn.innerHTML = originalText;
@@ -3443,7 +3966,624 @@ Demikian disampaikan.....(alinea penutup).....</textarea>
             }
         }
 
-        window.onload = initForm;
+        // ==========================================
+        // FITUR ARSIP UNDUHAN SURAT & DYNAMIC DATE
+        // ==========================================
+        function updateHeaderDate() {
+            const headerTgl = document.getElementById('header-tanggal-surat');
+            if (headerTgl) {
+                const type = document.getElementById('letter-type').value;
+                let tglValue = '';
+                if (type === 'SPPD') {
+                    const el = document.getElementById('sppd-tgl-validasi');
+                    tglValue = el ? el.value : '';
+                } else {
+                    const el = document.getElementById('tanggal');
+                    tglValue = el ? el.value : '';
+                }
+                headerTgl.innerText = tglValue && tglValue.trim() !== '' ? tglValue : '-';
+            }
+        }
+
+        const ArchiveState = {
+            currentPage: 1,
+            pageSize: 15,
+            searchQuery: "",
+            sortColumn: "id",
+            sortOrder: "desc",
+            filteredItems: []
+        };
+
+        function getArchivePerihal(item) {
+            if (!item.formData) return '-';
+            if (item.type === 'SPPD') {
+                return item.formData['sppd-maksud'] || '-';
+            }
+            if (item.type === 'SURAT TUGAS') {
+                return item.formData['untuk'] || '-';
+            }
+            return item.formData['perihal'] || '-';
+        }
+
+        function getArchiveTujuan(item) {
+            if (!item.formData) return '-';
+            if (item.type === 'SPPD') {
+                return item.formData['sppd-tujuan'] || '-';
+            }
+            if (item.type === 'SURAT TUGAS') {
+                return item.formData['kepada'] || '-';
+            }
+            return item.formData['penerima'] || '-';
+        }
+
+        function setFormData(item) {
+            const typeSelect = document.getElementById('letter-type');
+            if (typeSelect && item.type) {
+                typeSelect.value = item.type;
+                checkLetterType();
+            }
+
+            const formData = item.formData || {};
+            Object.keys(formData).forEach(key => {
+                if (key === 'pengikutList') {
+                    pengikutList = formData[key] || [];
+                    renderPengikutInputs();
+                } else {
+                    const el = document.getElementById(key);
+                    if (el) {
+                        if (el.type === 'radio') {
+                            // Handled separately
+                        } else {
+                            el.value = formData[key];
+                        }
+                    }
+                }
+            });
+
+            if (formData['sppd_page']) {
+                const radio = document.querySelector(`input[name="sppd_page"][value="${formData['sppd_page']}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            const hiddenJabatan = document.getElementById('input-jabatan');
+            if (hiddenJabatan && formData['input-jabatan']) {
+                hiddenJabatan.value = formData['input-jabatan'];
+            }
+
+            const selectJabatan = document.getElementById('jabatan-penandatangan');
+            if (selectJabatan && formData['input-jabatan']) {
+                selectJabatan.value = formData['input-jabatan'];
+            }
+
+            checkLetterType(); 
+            updatePreview();
+            updateHeaderDate();
+        }
+
+        function downloadArchivedPDF(id) {
+            let archive = JSON.parse(localStorage.getItem('letterArchive') || '[]');
+            const item = archive.find(x => x.id === id);
+            if (!item) return;
+
+            // Keep current form data to restore after download
+            const currentType = document.getElementById('letter-type').value;
+            const currentFormData = {};
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.id && input.type !== 'radio') {
+                    currentFormData[input.id] = input.value;
+                }
+            });
+            const currentPengikut = [...pengikutList];
+            
+            // Set the archived letter data
+            setFormData(item);
+            
+            // Download the PDF
+            downloadPDF();
+            
+            // Restore current form data after a short timeout to let downloadPDF complete
+            setTimeout(() => {
+                const typeSelect = document.getElementById('letter-type');
+                if (typeSelect) {
+                    typeSelect.value = currentType;
+                    checkLetterType();
+                }
+                
+                Object.keys(currentFormData).forEach(key => {
+                    const el = document.getElementById(key);
+                    if (el) el.value = currentFormData[key];
+                });
+                
+                pengikutList = currentPengikut;
+                renderPengikutInputs();
+                
+                checkLetterType();
+                updatePreview();
+                updateHeaderDate();
+            }, 1200);
+        }
+
+        function openArchiveModal() {
+            const modal = document.getElementById('archive-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                const searchInput = document.getElementById('archive-search');
+                if (searchInput) searchInput.value = '';
+                ArchiveState.currentPage = 1;
+                ArchiveState.searchQuery = '';
+                renderArchiveList();
+            }
+        }
+
+        function closeArchiveModal() {
+            const modal = document.getElementById('archive-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function renderArchiveList() {
+            const searchInput = document.getElementById('archive-search');
+            if (searchInput) {
+                ArchiveState.searchQuery = searchInput.value;
+            } else {
+                ArchiveState.searchQuery = "";
+            }
+            
+            let archive = JSON.parse(localStorage.getItem('letterArchive') || '[]');
+            
+            // Filter
+            const query = ArchiveState.searchQuery.toLowerCase().trim();
+            if (query === "") {
+                ArchiveState.filteredItems = [...archive];
+            } else {
+                ArchiveState.filteredItems = archive.filter(item => {
+                    const nomor = (item.nomor || "").toLowerCase();
+                    const tanggal = (item.tglSurat || "").toLowerCase();
+                    const file = (item.fileName || "").toLowerCase();
+                    const type = (item.type || "").toLowerCase();
+                    const perihal = getArchivePerihal(item).toLowerCase();
+                    const tujuan = getArchiveTujuan(item).toLowerCase();
+                    
+                    return nomor.includes(query) || 
+                           tanggal.includes(query) || 
+                           file.includes(query) || 
+                           type.includes(query) || 
+                           perihal.includes(query) || 
+                           tujuan.includes(query);
+                });
+            }
+
+            // Sort
+            const column = ArchiveState.sortColumn;
+            const order = ArchiveState.sortOrder === 'asc' ? 1 : -1;
+            
+            ArchiveState.filteredItems.sort((a, b) => {
+                let valA = '';
+                let valB = '';
+                
+                switch (column) {
+                    case 'nomor':
+                        valA = a.nomor || '';
+                        valB = b.nomor || '';
+                        break;
+                    case 'tanggal':
+                        valA = a.tglSurat || '';
+                        valB = b.tglSurat || '';
+                        break;
+                    case 'perihal':
+                        valA = getArchivePerihal(a);
+                        valB = getArchivePerihal(b);
+                        break;
+                    case 'tujuan':
+                        valA = getArchiveTujuan(a);
+                        valB = getArchiveTujuan(b);
+                        break;
+                    case 'file':
+                        valA = a.fileName || '';
+                        valB = b.fileName || '';
+                        break;
+                    default:
+                        valA = a.id;
+                        valB = b.id;
+                }
+                
+                return valA.toString().localeCompare(valB.toString(), undefined, {numeric: true, sensitivity: 'base'}) * order;
+            });
+
+            renderArchiveTable();
+            updateSortIcons();
+        }
+
+        function renderArchiveTable() {
+            const tableBody = document.getElementById('archive-table-body');
+            const entriesInfo = document.getElementById('archive-entries-info');
+            const pagination = document.getElementById('archive-pagination');
+            
+            if (!tableBody) return;
+
+            const totalItems = ArchiveState.filteredItems.length;
+            const totalPages = Math.ceil(totalItems / ArchiveState.pageSize);
+            
+            // Adjust current page
+            if (ArchiveState.currentPage > totalPages) {
+                ArchiveState.currentPage = totalPages > 0 ? totalPages : 1;
+            }
+            if (ArchiveState.currentPage < 1) {
+                ArchiveState.currentPage = 1;
+            }
+
+            if (totalItems === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: #7f8c8d; font-size: 13px;">
+                            Tidak ada data arsip yang cocok.
+                        </td>
+                    </tr>
+                `;
+                if (entriesInfo) entriesInfo.innerText = "Showing 0 to 0 of 0 entries";
+                if (pagination) pagination.innerHTML = "";
+                return;
+            }
+
+            const startIndex = (ArchiveState.currentPage - 1) * ArchiveState.pageSize;
+            const endIndex = Math.min(startIndex + ArchiveState.pageSize, totalItems);
+            const pageItems = ArchiveState.filteredItems.slice(startIndex, endIndex);
+
+            let html = "";
+            pageItems.forEach((item, index) => {
+                const globalIndex = startIndex + index + 1;
+                const rowBg = index % 2 === 1 ? '#f8fafc' : '#ffffff';
+                const cleanFileName = item.fileName || 'Download PDF';
+                
+                html += `
+                    <tr style="background-color: ${rowBg}; border-bottom: 1px solid #e2e8f0; transition: background-color 0.15s;" onmouseover="this.style.backgroundColor='#f1f5f9'" onmouseout="this.style.backgroundColor='${rowBg}'">
+                        <td style="padding: 10px; text-align: center; border-right: 1px solid #cbd5e1; color: #475569;">${globalIndex}</td>
+                        <td style="padding: 10px 15px; border-right: 1px solid #cbd5e1; font-weight: 500; color: #1e293b;">${item.nomor || '-'}</td>
+                        <td style="padding: 10px 15px; border-right: 1px solid #cbd5e1; color: #475569;">${item.tglSurat || '-'}</td>
+                        <td style="padding: 10px 15px; border-right: 1px solid #cbd5e1; color: #475569; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${getArchivePerihal(item)}">${getArchivePerihal(item)}</td>
+                        <td style="padding: 10px 15px; border-right: 1px solid #cbd5e1; color: #475569; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${getArchiveTujuan(item)}">${getArchiveTujuan(item)}</td>
+                        <td style="padding: 10px 15px; border-right: 1px solid #cbd5e1;">
+                            <a onclick="downloadArchivedPDF(${item.id})" style="color: #2563eb; text-decoration: none; cursor: pointer; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+                                ${cleanFileName}
+                            </a>
+                        </td>
+                        <td style="padding: 10px; text-align: center;">
+                            <div style="display: flex; gap: 6px; justify-content: center;">
+                                <button onclick="loadArchivedLetter(${item.id})" style="background-color: #f59e0b; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; transition: background-color 0.15s;" onmouseover="this.style.backgroundColor='#d97706'" onmouseout="this.style.backgroundColor='#f59e0b'">
+                                    Ubah
+                                </button>
+                                <button onclick="deleteArchiveItem(${item.id}, event)" style="background-color: #ef4444; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; transition: background-color 0.15s;" onmouseover="this.style.backgroundColor='#dc2626'" onmouseout="this.style.backgroundColor='#ef4444'">
+                                    Hapus
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tableBody.innerHTML = html;
+
+            // Update entries info
+            if (entriesInfo) {
+                entriesInfo.innerText = `Showing ${startIndex + 1} to ${endIndex} of ${totalItems} entries`;
+            }
+
+            // Render pagination
+            if (pagination) {
+                let pagHtml = "";
+                
+                // Previous button
+                const prevDisabled = ArchiveState.currentPage === 1;
+                pagHtml += `<button onclick="${prevDisabled ? '' : 'changeArchivePage(' + (ArchiveState.currentPage - 1) + ')'}" style="padding: 5px 10px; font-size: 12px; border: 1px solid #cbd5e1; background: ${prevDisabled ? '#f1f5f9' : 'white'}; color: ${prevDisabled ? '#94a3b8' : '#475569'}; cursor: ${prevDisabled ? 'default' : 'pointer'}; border-radius: 4px;" ${prevDisabled ? 'disabled' : ''}>Previous</button>`;
+                
+                // Page numbers
+                for (let p = 1; p <= totalPages; p++) {
+                    const isCurrent = p === ArchiveState.currentPage;
+                    pagHtml += `<button onclick="changeArchivePage(${p})" style="padding: 5px 10px; font-size: 12px; border: 1px solid ${isCurrent ? '#3b82f6' : '#cbd5e1'}; background: ${isCurrent ? '#3b82f6' : 'white'}; color: ${isCurrent ? 'white' : '#475569'}; cursor: pointer; border-radius: 4px; font-weight: ${isCurrent ? 'bold' : 'normal'};">${p}</button>`;
+                }
+                
+                // Next button
+                const nextDisabled = ArchiveState.currentPage === totalPages;
+                pagHtml += `<button onclick="${nextDisabled ? '' : 'changeArchivePage(' + (ArchiveState.currentPage + 1) + ')'}" style="padding: 5px 10px; font-size: 12px; border: 1px solid #cbd5e1; background: ${nextDisabled ? '#f1f5f9' : 'white'}; color: ${nextDisabled ? '#94a3b8' : '#475569'}; cursor: ${nextDisabled ? 'default' : 'pointer'}; border-radius: 4px;" ${nextDisabled ? 'disabled' : ''}>Next</button>`;
+                
+                pagination.innerHTML = pagHtml;
+            }
+        }
+
+        function changeArchivePage(page) {
+            ArchiveState.currentPage = page;
+            renderArchiveTable();
+        }
+
+        function changeArchivePageSize(size) {
+            ArchiveState.pageSize = parseInt(size) || 10;
+            ArchiveState.currentPage = 1;
+            renderArchiveTable();
+        }
+
+        function filterArchive(val) {
+            ArchiveState.searchQuery = val;
+            ArchiveState.currentPage = 1;
+            renderArchiveList();
+        }
+
+        function sortArchiveBy(column) {
+            if (ArchiveState.sortColumn === column) {
+                ArchiveState.sortOrder = ArchiveState.sortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                ArchiveState.sortColumn = column;
+                ArchiveState.sortOrder = 'asc';
+            }
+            ArchiveState.currentPage = 1;
+            renderArchiveList();
+        }
+
+        function updateSortIcons() {
+            const columns = ['id', 'nomor', 'tanggal', 'perihal', 'tujuan', 'file'];
+            columns.forEach(col => {
+                const icon = document.getElementById(`sort-icon-${col}`);
+                if (icon) {
+                    if (ArchiveState.sortColumn === col) {
+                        icon.className = ArchiveState.sortOrder === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+                        icon.style.color = '#3b82f6';
+                    } else {
+                        icon.className = 'fas fa-sort';
+                        icon.style.color = '#a0aec0';
+                    }
+                }
+            });
+        }
+
+        function deleteArchiveItem(id, event) {
+            if (event) event.stopPropagation();
+            if (!confirm('Hapus item ini dari riwayat unduhan?')) return;
+            
+            let archive = JSON.parse(localStorage.getItem('letterArchive') || '[]');
+            archive = archive.filter(item => item.id !== id);
+            localStorage.setItem('letterArchive', JSON.stringify(archive));
+            
+            renderArchiveList();
+            updateArchiveBadge();
+        }
+
+        function clearAllArchive() {
+            if (!confirm('Apakah Anda yakin ingin menghapus seluruh riwayat unduhan surat?')) return;
+            localStorage.removeItem('letterArchive');
+            renderArchiveList();
+            updateArchiveBadge();
+        }
+
+        function updateArchiveBadge() {
+            const btnBadge = document.getElementById('archive-btn-badge');
+            if (btnBadge) {
+                let archive = JSON.parse(localStorage.getItem('letterArchive') || '[]');
+                if (archive.length > 0) {
+                    btnBadge.innerText = archive.length;
+                    btnBadge.style.display = 'inline-block';
+                } else {
+                    btnBadge.style.display = 'none';
+                }
+            }
+        }
+
+        function loadArchivedLetter(id) {
+            let archive = JSON.parse(localStorage.getItem('letterArchive') || '[]');
+            const item = archive.find(x => x.id === id);
+            if (!item) return;
+
+            if (!confirm(`Muat ulang surat nomor "${item.nomor}" ke dalam form? Ini akan menimpa data yang sedang Anda isi sekarang.`)) return;
+
+            try {
+                setFormData(item);
+                closeArchiveModal();
+                alert('Data surat berhasil dimuat ulang ke dalam form!');
+            } catch (e) {
+                console.error('Error loading archived letter:', e);
+                alert('Gagal memuat arsip: ' + e.message);
+            }
+        }
+
+        function exportArchiveToExcel() {
+            let archive = ArchiveState.filteredItems;
+            if (archive.length === 0) {
+                alert('Tidak ada data untuk diekspor.');
+                return;
+            }
+            
+            let csvContent = "\uFEFF"; // UTF-8 BOM
+            csvContent += "No,No. Surat,Tanggal Surat,Perihal,Tujuan Surat,File\n";
+            
+            archive.forEach((item, index) => {
+                const no = index + 1;
+                const nomor = `"${(item.nomor || '').replace(/"/g, '""')}"`;
+                const tanggal = `"${(item.tglSurat || '').replace(/"/g, '""')}"`;
+                const perihal = `"${getArchivePerihal(item).replace(/"/g, '""')}"`;
+                const tujuan = `"${getArchiveTujuan(item).replace(/"/g, '""')}"`;
+                const file = `"${(item.fileName || '').replace(/"/g, '""')}"`;
+                
+                csvContent += `${no},${nomor},${tanggal},${perihal},${tujuan},${file}\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Arsip_Surat_Keluar_${new Date().getTime()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function printArchiveList() {
+            let archive = ArchiveState.filteredItems;
+            if (archive.length === 0) {
+                alert('Tidak ada data untuk dicetak.');
+                return;
+            }
+            
+            const printWindow = window.open('', '_blank', 'width=900,height=600');
+            let html = `
+                <html>
+                <head>
+                    <title>Cetak Data Surat Keluar</title>
+                    <style>
+                        body { font-family: Tahoma, sans-serif; padding: 20px; color: #333; }
+                        h2 { text-align: center; margin-bottom: 20px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+                        th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; font-size: 13px; }
+                        th { background-color: #f1f5f9; font-weight: bold; }
+                        tr:nth-child(even) { background-color: #f8fafc; }
+                    </style>
+                </head>
+                <body>
+                    <h2>Data Surat Keluar</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 50px; text-align: center;">No</th>
+                                <th>No. Surat</th>
+                                <th style="width: 130px;">Tanggal Surat</th>
+                                <th>Perihal</th>
+                                <th>Tujuan Surat</th>
+                                <th>File Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            archive.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td style="text-align: center;">${index + 1}</td>
+                        <td>${item.nomor || '-'}</td>
+                        <td>${item.tglSurat || '-'}</td>
+                        <td>${getArchivePerihal(item)}</td>
+                        <td>${getArchiveTujuan(item)}</td>
+                        <td>${item.fileName || '-'}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                            window.onafterprint = function() { window.close(); };
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.open();
+            printWindow.document.write(html);
+            printWindow.document.close();
+        }
+
+        window.onload = function() {
+            initForm();
+            // Otomatis scroll ke atas (bagian header) ketika halaman dimuat ulang
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Fokuskan kursor ke input pertama (Jenis Surat)
+            const typeSelect = document.getElementById('letter-type');
+            if(typeSelect) {
+                typeSelect.focus();
+            }
+
+            // Update badge dan date on load
+            updateArchiveBadge();
+            updateHeaderDate();
+            
+            // Listen for input changes to update header date dynamically
+            const inputTgl = document.getElementById('tanggal');
+            if (inputTgl) {
+                inputTgl.addEventListener('input', updateHeaderDate);
+            }
+            const inputSppdTgl = document.getElementById('sppd-tgl-validasi');
+            if (inputSppdTgl) {
+                inputSppdTgl.addEventListener('input', updateHeaderDate);
+            }
+            const inputType = document.getElementById('letter-type');
+            if (inputType) {
+                inputType.addEventListener('change', updateHeaderDate);
+            }
+        };
     </script>
+
+    <!-- HTML MODAL ARSIP -->
+    <div id="archive-modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #f8fafc; border-radius: 8px; width: 98%; max-width: 1500px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); display: flex; flex-direction: column; max-height: 95vh; animation: fadeIn 0.3s ease; padding: 25px; font-family: 'Tahoma', 'Arial', sans-serif;">
+            
+            <!-- Page Title -->
+            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="font-size: 26px; color: #5f6368; font-weight: normal; margin: 0;">Surat Keluar</h1>
+                <span onclick="closeArchiveModal()" style="font-size: 30px; font-weight: bold; color: #888; cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#888'">&times;</span>
+            </div>
+
+            <!-- Card container -->
+            <div style="background: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 25px; display: flex; flex-direction: column; flex: 1; overflow: hidden; border-top: 4px solid #3b82f6;">
+                
+                <!-- Card Header with Title -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-size: 20px; color: #475569; font-weight: normal; margin: 0;">Data Surat Keluar</h2>
+                </div>
+
+                <!-- DataTable Toolbar (Hanya Search) -->
+                <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px;">
+                    <!-- Right tools: Search -->
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 13px; color: #475569;">Search:</span>
+                        <input type="text" id="archive-search" oninput="filterArchive(this.value)" placeholder="Cari surat..." style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; width: 220px; background: white;">
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div style="flex: 1; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 4px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                        <thead>
+                            <tr style="background-color: #d2e3fc; color: #334155; border-bottom: 2px solid #b5ccf8; cursor: pointer;">
+                                <th onclick="sortArchiveBy('id')" style="padding: 12px 10px; font-weight: bold; border-right: 1px solid #cbd5e1; width: 50px; text-align: center;">No <span id="sort-icon-id" class="fas fa-sort" style="float: right; color: #a0aec0; font-size: 11px; margin-top: 3px;"></span></th>
+                                <th onclick="sortArchiveBy('nomor')" style="padding: 12px 15px; font-weight: bold; border-right: 1px solid #cbd5e1;">No. Surat <span id="sort-icon-nomor" class="fas fa-sort" style="float: right; color: #a0aec0; font-size: 11px; margin-top: 3px;"></span></th>
+                                <th onclick="sortArchiveBy('tanggal')" style="padding: 12px 15px; font-weight: bold; border-right: 1px solid #cbd5e1; width: 130px;">Tanggal Surat <span id="sort-icon-tanggal" class="fas fa-sort" style="float: right; color: #a0aec0; font-size: 11px; margin-top: 3px;"></span></th>
+                                <th onclick="sortArchiveBy('perihal')" style="padding: 12px 15px; font-weight: bold; border-right: 1px solid #cbd5e1;">Perihal <span id="sort-icon-perihal" class="fas fa-sort" style="float: right; color: #a0aec0; font-size: 11px; margin-top: 3px;"></span></th>
+                                <th onclick="sortArchiveBy('tujuan')" style="padding: 12px 15px; font-weight: bold; border-right: 1px solid #cbd5e1;">Tujuan Surat <span id="sort-icon-tujuan" class="fas fa-sort" style="float: right; color: #a0aec0; font-size: 11px; margin-top: 3px;"></span></th>
+                                <th onclick="sortArchiveBy('file')" style="padding: 12px 15px; font-weight: bold; border-right: 1px solid #cbd5e1;">File <span id="sort-icon-file" class="fas fa-sort" style="float: right; color: #a0aec0; font-size: 11px; margin-top: 3px;"></span></th>
+                                <th style="padding: 12px 15px; font-weight: bold; text-align: center; width: 160px; cursor: default;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="archive-table-body">
+                            <!-- Diisi dinamis -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Card Footer (Showing entry and Pagination) -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px;">
+                    <div id="archive-entries-info" style="font-size: 13px; color: #64748b;">
+                        Showing 0 to 0 of 0 entries
+                    </div>
+                    <div id="archive-pagination" style="display: flex; gap: 4px;">
+                        <!-- Diisi dinamis -->
+                    </div>
+                </div>
+
+            </div> <!-- Close Card container -->
+            
+            <!-- Clear Button and Close Button -->
+            <div style="display: flex; justify-content: flex-end; margin-top: 15px; align-items: center; gap: 10px;">
+                <button onclick="clearAllArchive()" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px;" onmouseover="this.style.backgroundColor='#dc2626'" onmouseout="this.style.backgroundColor='#ef4444'">
+                    <i class="fas fa-trash-alt"></i> Hapus Semua Riwayat
+                </button>
+                <button onclick="closeArchiveModal()" style="background: #e2e8f0; color: #475569; border: none; padding: 8px 16px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer;" onmouseover="this.style.backgroundColor='#cbd5e1'" onmouseout="this.style.backgroundColor='#e2e8f0'">
+                    Tutup
+                </button>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>
